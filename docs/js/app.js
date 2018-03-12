@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
 
-	$.get( "./index.yaml", function(yaml) {
+	$.get( "./menu.yaml", function(yaml) {
 
 		$.each(jsyaml.load(yaml), function(key, value) { 
 			$('#list').append(createHtml(key, value));
@@ -17,6 +17,10 @@ $(document).ready(function () {
 		$.get("pages/"+$(this).data('url'), function(data) {
 			$('#body').html(new showdown.Converter().makeHtml(data));
 		});
+
+		$(this).blur();
+
+		$("#list li ul").not($(this).parent()).collapse('hide');
 
     });
 

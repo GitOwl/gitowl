@@ -56,7 +56,7 @@ body {
     
     ul {
         &#list{
-           padding: 15px 3px;
+           padding: 15px 0px;
         }
         
         li span{
@@ -66,7 +66,7 @@ body {
 
         li a {
             display: block;
-            padding: .75rem 1rem;
+            padding: .75rem 1.5rem;
             color: rgba($light, .75);
 
             text-decoration: none;
@@ -88,19 +88,20 @@ body {
     [data-toggle="collapse"] {
         position: relative;
         
-        &:before {
-            content: "\f0d7";
-            font-family: 'FontAwesome';
-            font-weight: 900;
-            position: absolute;
-            right: 1rem;
-        }
+        // &:before {
+        //     content: "\f0d7";
+        //     font-family: 'FontAwesome';
+        //     font-weight: 900;
+        //     position: absolute;
+        //     right: 1rem;
+        // }
     }
     [aria-expanded="true"] {
         background: rgba($dark, .15);
         
         &:before {
-            content: "\f0d8";
+        //     content: "\f0d8";
+        outline: none;
         }
     }
     

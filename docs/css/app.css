@@ -38,13 +38,13 @@ body {
   min-height: 100vh;
   background-color: #3A424D; }
   #sidebar ul#list {
-    padding: 15px 3px; }
+    padding: 15px 0px; }
   #sidebar ul li span {
     font-weight: 900;
     color: rgba(255, 255, 255, 0.3); }
   #sidebar ul li a {
     display: block;
-    padding: .75rem 1rem;
+    padding: .75rem 1.5rem;
     color: rgba(255, 255, 255, 0.75);
     text-decoration: none; }
     #sidebar ul li a:hover, #sidebar ul li a .sidebar ul .active a {
@@ -55,16 +55,10 @@ body {
     background: rgba(0, 0, 0, 0.15); }
   #sidebar [data-toggle="collapse"] {
     position: relative; }
-    #sidebar [data-toggle="collapse"]:before {
-      content: "\f0d7";
-      font-family: 'FontAwesome';
-      font-weight: 900;
-      position: absolute;
-      right: 1rem; }
   #sidebar [aria-expanded="true"] {
     background: rgba(0, 0, 0, 0.15); }
     #sidebar [aria-expanded="true"]:before {
-      content: "\f0d8"; }
+      outline: none; }
   #sidebar.toggled {
     margin-left: -250px; }
   #sidebar #header {
