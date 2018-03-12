@@ -1,5 +1,5 @@
-### docs/pages/Basic/what-is-githow.md
+### Chapter 1
 
-# what-is-githow
+# Basics
 
 Discover what **Grav** is all about and the core-concepts behind it.

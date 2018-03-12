@@ -36,9 +36,8 @@ body {
   min-width: 300px;
   max-width: 300px;
   min-height: 100vh;
-  transition: all 0.3s;
   background-color: #3A424D; }
-  #sidebar ul.list {
+  #sidebar ul#list {
     padding: 15px 3px; }
   #sidebar ul li span {
     font-weight: 900;

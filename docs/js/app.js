@@ -1,5 +1,31 @@
 $(document).ready(function () {
-	// toggle sidebar when button clicked
+
+
+	$.get( "./index.yaml", function(yaml) {
+
+		$.each(jsyaml.load(yaml), function(key, value) { 
+			$('#list').append(createHtml(key, value));
+		});
+
+	}).fail(function(jqXHR, textStatus) {
+		alert('Error in index.yaml: '+textStatus);
+		console.log(textStatus);
+	});
+
+
+    $("#list").on("click", "li a", function() {
+		$.get("pages/"+$(this).data('url'), function(data) {
+			$('#body').html(new showdown.Converter().makeHtml(data));
+		});
+
+    });
+
+    // $("#list").on( "click", ".collapse", function() {
+    // 	$("#list li ul").collapse('hide')
+    // });
+
+/*
+	toggle sidebar when button clicked
 	$('.sidebar-toggle').on('click', function () {
 		$('.sidebar').toggleClass('toggled');
 	});
@@ -13,12 +39,30 @@ $(document).ready(function () {
 		parent.prev('a').attr('aria-expanded', true);
 		parent.addClass('show');
 	}
+*/
 
 
-    $(".list a").click(function(){
-		$.get("pages/"+$(this).data('url'), function (data) {
-			$('#body').html(new showdown.Converter().makeHtml(data));
-		});
-    });
 
 });
+
+
+function createHtml(key, page){
+	// console.log(page);
+	html =  '<li>';
+	html += '  <a href="#menu-'+ key +'" data-url="'+ page.dir +'/chapter.md" data-toggle="collapse"><span>'+ page.id +'. </span> '+ page.title +'</a>'
+	html += '  <ul id="menu-'+ key +'" class="list-unstyled collapse">';	
+	
+	$.each(page.items, function(key2, item) { 
+		//console.log(item);
+		html += '<li><a href="#'+ page.dir +'" data-url="'+ page.dir +'/'+item.file+'.md">'+ item.title +'</a></li>';
+	});
+													
+	html += '  </ul>';
+	html +=  '</li>';
+
+
+	return html;
+}
+
+
+// <li><a href="#" data-url='Basic/what-is-githow.md'><span>1.</span> Sidebar Link</a></li>
