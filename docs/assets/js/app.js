@@ -20,23 +20,22 @@ $(document).ready(function () {
 
 		$.get("pages/"+url, function(data) {
 
-			let sd = new showdown.Converter({noHeaderId: 'true'})
-
-			let bf = ""
-			let af = ""
-
 			if(url.endsWith('/chapter.md')){
-				bf = '<div id="chapter">'
-				af = '</div>'
+				if(!$("#chapter").length > 0) 
+					$("#body-inner").wrap("<div id='chapter'></div>")
+			} else {
+				$("#chapter").contents().unwrap()
 			}
-
-			$('#body').html(bf+sd.makeHtml(data)+af)
+		
+			$('#body-inner').html(
+				new showdown.Converter({noHeaderId: 'true'}).makeHtml(data)
+			)
 		});
 
 		$("#list li a").removeClass('active')
 		
 		elem.addClass('active')
-
+		
 
 		elem.blur()
 

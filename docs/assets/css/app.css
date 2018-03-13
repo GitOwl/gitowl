@@ -5,29 +5,95 @@ body {
   font-size: 18px !important; }
 
 #body {
-  font-family: "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif; }
-  #body #chapter h1 {
+  font-family: "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  text-rendering: optimizeLegibility;
+  position: relative;
+  margin-left: 300px;
+  min-height: 100%; }
+  #body h1, #body h2, #body h3, #body h4, #body h5, #body h6 {
+    margin: .85rem 0 1.7rem 0; }
+  #body pre {
+    padding: 1rem;
+    margin: 2rem 0;
+    background: #efefef;
+    border: 0;
+    border-radius: 2px;
+    line-height: 1.15; }
+  #body h3 {
+    color: #212529;
+    font-weight: 500;
+    letter-spacing: -1px;
+    font-size: 2rem; }
+  #body p {
+    margin: 1.7rem 0; }
+  #body b, #body strong, #body label, #body th {
+    font-weight: 600; }
+  #body code {
+    border-radius: 3px;
+    color: #212529;
+    background: #efefef;
+    padding: 0 5px; }
+  #body #top-bar {
+    background: #F6F6F6;
+    border-radius: 2px;
+    margin: 0rem -1rem 2rem;
+    padding: 0 1rem;
+    height: 0;
+    min-height: 3rem; }
+  #body .padding {
+    padding: 3rem 6rem; }
+  #body .nav {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 4rem;
+    font-size: 50px;
+    height: 100%;
+    cursor: pointer;
+    display: table;
     text-align: center;
-    text-transform: uppercase;
-    color: #222;
-    font-weight: 200;
-    border-bottom: 4px solid #F0F2F4;
-    margin: .85rem 0 1.7rem 0;
-    text-rendering: optimizeLegibility; }
-  #body #chapter h3 {
-    text-align: center;
-    margin: .85rem 0 1.7rem 0;
-    text-rendering: optimizeLegibility; }
-  #body #chapter p {
-    text-align: center;
-    font-size: 1.2rem; }
+    color: rgba(0, 86, 179, 0.09); }
+    #body .nav > i {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center; }
+    #body .nav.nav-next {
+      right: 0; }
+    #body .nav:hover {
+      color: #0056b3;
+      text-decoration: none; }
+  #body #chapter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 2rem 0; }
+    #body #chapter #body-inner {
+      padding-bottom: 3rem;
+      max-width: 80%; }
+    #body #chapter h1 {
+      text-align: center;
+      text-transform: uppercase;
+      color: #222;
+      font-weight: 200;
+      border-bottom: 4px solid #F0F2F4;
+      margin: .85rem 0 1.7rem 0;
+      text-rendering: optimizeLegibility; }
+    #body #chapter h3 {
+      text-align: center;
+      margin: .85rem 0 1.7rem 0;
+      text-rendering: optimizeLegibility; }
+    #body #chapter p {
+      text-align: center;
+      font-size: 1.2rem; }
 
 .searchbox {
   margin-top: .5rem;
   position: relative;
   border: 1px solid rgba(0, 0, 0, 0.05);
   background: rgba(0, 0, 0, 0.15);
-  border-radius: 4px; }
+  border-radius: 4px;
+  font-size: 15px; }
   .searchbox input {
     display: inline-block;
     color: #FFF;
@@ -41,25 +107,29 @@ body {
   .searchbox label {
     color: rgba(255, 255, 255, 0.8);
     position: absolute;
-    left: 7px;
-    top: 1px; }
+    left: 9px;
+    top: 3px; }
   .searchbox span {
     color: rgba(255, 255, 255, 0.6);
     position: absolute;
     right: 9px;
-    top: 1px;
+    top: 3px;
     cursor: pointer; }
 
 #sidebar {
-  min-width: 300px;
-  max-width: 300px;
-  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  width: 300px;
+  bottom: 0;
+  left: 0;
+  transition: all 0.3s ease;
   background-color: #3A424D; }
   #sidebar ul#list {
     padding: 15px 0px; }
   #sidebar ul li span {
     font-weight: 900;
-    color: rgba(255, 255, 255, 0.3); }
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 15px; }
   #sidebar ul li a {
     display: block;
     padding: .75rem 1.5rem;
