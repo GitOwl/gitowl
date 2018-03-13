@@ -4,136 +4,195 @@ $dark: #000;
 $sidebar-bg: #3A424D;
 $sidebar-header-bg: #3891C9;
 
+$font-family-1: "Work Sans","Helvetica","Tahoma","Geneva","Arial",sans-serif;
+$font-family-2: "Novacento Sans Wide","Helvetica","Tahoma","Geneva","Arial",sans-serif;
+
+
 body {
-    font-family: "Work Sans","Helvetica","Tahoma","Geneva","Arial",sans-serif;
-    font-weight: 300;
-    line-height: 1.6;
-    font-size: 18px !important;
+	font-family: $font-family-1;
+	font-weight: 300;
+	line-height: 1.6;
+	font-size: 18px !important;
 }
 
+
+
+#body{
+	font-family: $font-family-1;
+
+	#chapter{
+		h1 {
+			text-align: center;
+			text-transform: uppercase;
+			color: #222;
+			font-weight: 200;
+			border-bottom: 4px solid #F0F2F4;
+
+			margin: .85rem 0 1.7rem 0;
+			text-rendering: optimizeLegibility;
+		}
+
+		h3 {
+			text-align: center;
+			margin: .85rem 0 1.7rem 0;
+
+			text-rendering: optimizeLegibility;
+		}
+		
+		p {
+			text-align: center;
+			font-size: 1.2rem;
+		}
+	}
+}
+
+
 .searchbox {
-    margin-top: .5rem;
-    position: relative;
-    border: 1px solid rgba($dark, .05);
-    background: rgba($dark, .15);
-    border-radius: 4px;
+	margin-top: .5rem;
+	position: relative;
+	border: 1px solid rgba($dark, .05);
+	background: rgba($dark, .15);
+	border-radius: 4px;
 
-    input {
-        display: inline-block;
-        color: $light;
-        width: 100%;
-        height: 30px;
-        background: transparent;
-        border: 0;
-        padding: 0 25px 0 30px;
-        margin: 0;
-        font-weight: 300;
-    }
+	input {
+		display: inline-block;
+		color: $light;
+		width: 100%;
+		height: 30px;
+		background: transparent;
+		border: 0;
+		padding: 0 25px 0 30px;
+		margin: 0;
+		font-weight: 300;
+	}
 
-    label {
-        color: rgba($light,.8);
-        position: absolute;
-        left: 10px;
-        top: 3px;
-    }
-    
-    span {
-        color: rgba($light,.6);
-        position: absolute;
-        right: 10px;
-        top: 3px;
-        cursor: pointer;
-    }
+	label {
+		color: rgba($light,.8);
+		position: absolute;
+		left: 7px;
+		top: 1px;
+	}
+	
+	span {
+		color: rgba($light,.6);
+		position: absolute;
+		right: 9px;
+		top: 1px;
+		cursor: pointer;
+		//display: none;
+	}
 }
 
 
 #sidebar {
-    min-width: 300px;
-    max-width: 300px;
-    min-height: 100vh;
-    // transition: all 0.3s;
-    background-color: $sidebar-bg; 
-    
-    ul {
-        &#list{
-           padding: 15px 0px;
-        }
-        
-        li span{
-            font-weight: 900;
-            color: rgba($light, .3);
-        }
+	min-width: 300px;
+	max-width: 300px;
+	min-height: 100vh;
+	// transition: all 0.3s;
+	background-color: $sidebar-bg; 
+	
+	ul {
+		&#list{
+		   padding: 15px 0px;
+		}
+		
+		li span{
+			font-weight: 900;
+			color: rgba($light, .3);
+		}
 
-        li a {
-            display: block;
-            padding: .75rem 1.5rem;
-            color: rgba($light, .75);
+		li a {
+			display: block;
+			padding: .75rem 1.5rem;
+			color: rgba($light, .75);
 
-            text-decoration: none;
-            
-            &:hover, .sidebar ul .active a {
-                color: rgba($light, 1);
-                background: rgba($dark, .25);
-            }
-        }
-        
-        ul a {
-            padding-left: 2.5rem;
-            background: rgba($dark, .15);
-        }
-    }
+			text-decoration: none;
+			
+			&:hover, .sidebar ul .active a {
+				color: rgba($light, 1);
+				background: rgba($dark, .25);
+			}
 
-    
+		}
+		
+		ul a {
+			padding-left: 2.5rem;
+			background: rgba($dark, .15);
 
-    [data-toggle="collapse"] {
-        position: relative;
-        
-        // &:before {
-        //     content: "\f0d7";
-        //     font-family: 'FontAwesome';
-        //     font-weight: 900;
-        //     position: absolute;
-        //     right: 1rem;
-        // }
-    }
-    [aria-expanded="true"] {
-        background: rgba($dark, .15);
-        
-        &:before {
-        //     content: "\f0d8";
-        outline: none;
-        }
-    }
-    
-    &.toggled {
-        margin-left: -250px;
-    }
-    
-    #header {
-        background: $sidebar-header-bg;
-        color: $light;
-        text-align: center;
-        padding: 1rem;
-        border-bottom: 4px solid rgba($dark, .2);
+		}
 
-        a {
-            color: rgba($light, 0.8);
-            font-size: 41px;
-            font-weight: bold;
-        }
-    }
+		.active {
+			color: #FFF;
+			position:relative;
+
+			&:after {
+				content: '';
+				width: 0px;
+				height: 0px;
+				border-style: solid;
+				border-width: 10px 10px 10px 0;
+				border-color: transparent #FFF transparent transparent;  
+    			position: absolute;
+				vertical-align: middle;
+				right: 0px;
+				top: 17px;
+			}
+
+		}
+	}
+
+
+	
+
+	[data-toggle="collapse"] {
+		position: relative;
+		
+		// &:before {
+		//     content: "\f0d7";
+		//     font-family: 'FontAwesome';
+		//     font-weight: 900;
+		//     position: absolute;
+		//     right: 1rem;
+		// }
+	}
+	[aria-expanded="true"] {
+		background: rgba($dark, .15);
+		
+		&:before {
+		//     content: "\f0d8";
+		outline: none;
+		}
+	}
+	
+	&.toggled {
+		margin-left: -250px;
+	}
+	
+	#header {
+		background: $sidebar-header-bg;
+		color: $light;
+		text-align: center;
+		padding: 1rem;
+		border-bottom: 4px solid rgba($dark, .2);
+
+		a {
+			color: rgba($light, 0.8);
+			font-size: 41px;
+			font-weight: bold;
+		}
+	}
 }
 
 .content {
-    width: 100%;
+	width: 100%;
 }
 
 @media (max-width: 768px) {
-    .sidebar {
-        margin-left: -250px;
-        
-        &.toggled {
-            margin-left: 0;
-        }
-    }
+	.sidebar {
+		margin-left: -250px;
+		
+		&.toggled {
+			margin-left: 0;
+		}
+	}
 }

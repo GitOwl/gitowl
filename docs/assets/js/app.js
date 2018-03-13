@@ -4,23 +4,43 @@ $(document).ready(function () {
 	$.get( "./menu.yaml", function(yaml) {
 
 		$.each(jsyaml.load(yaml), function(key, value) { 
-			$('#list').append(createHtml(key, value));
-		});
+			$('#list').append(createHtml(key, value))
+		})
 
 	}).fail(function(jqXHR, textStatus) {
-		alert('Error in index.yaml: '+textStatus);
-		console.log(textStatus);
+		alert('Error in index.yaml: '+textStatus)
+		console.log(textStatus)
 	});
 
 
     $("#list").on("click", "li a", function() {
-		$.get("pages/"+$(this).data('url'), function(data) {
-			$('#body').html(new showdown.Converter().makeHtml(data));
+    	let elem = $(this)
+
+		let url = elem.data('url')
+
+		$.get("pages/"+url, function(data) {
+
+			let sd = new showdown.Converter({noHeaderId: 'true'})
+
+			let bf = ""
+			let af = ""
+
+			if(url.endsWith('/chapter.md')){
+				bf = '<div id="chapter">'
+				af = '</div>'
+			}
+
+			$('#body').html(bf+sd.makeHtml(data)+af)
 		});
 
-		$(this).blur();
+		$("#list li a").removeClass('active')
+		
+		elem.addClass('active')
 
-		$("#list li ul").not($(this).parent()).collapse('hide');
+
+		elem.blur()
+
+		$("#list li ul").not(elem.parent().parent()).collapse('hide')
 
     });
 
@@ -51,21 +71,21 @@ $(document).ready(function () {
 
 
 function createHtml(key, page){
-	// console.log(page);
-	html =  '<li>';
+	// console.log(page)
+	html =  '<li>'
 	html += '  <a href="#menu-'+ key +'" data-url="'+ page.dir +'/chapter.md" data-toggle="collapse"><span>'+ page.id +'. </span> '+ page.title +'</a>'
-	html += '  <ul id="menu-'+ key +'" class="list-unstyled collapse">';	
+	html += '  <ul id="menu-'+ key +'" class="list-unstyled collapse">'	
 	
 	$.each(page.items, function(key2, item) { 
-		//console.log(item);
-		html += '<li><a href="#'+ page.dir +'" data-url="'+ page.dir +'/'+item.file+'.md">'+ item.title +'</a></li>';
+		//console.log(item)
+		html += '<li><a href="#'+ page.dir +'" data-url="'+ page.dir +'/'+item.file+'.md">'+ item.title +'</a></li>'
 	});
 													
-	html += '  </ul>';
-	html +=  '</li>';
+	html += '  </ul>'
+	html +=  '</li>'
 
 
-	return html;
+	return html
 }
 
 

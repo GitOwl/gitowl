@@ -1,8 +1,26 @@
 body {
-  font-family: "Work Sans","Helvetica","Tahoma","Geneva","Arial",sans-serif;
+  font-family: "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
   font-weight: 300;
   line-height: 1.6;
   font-size: 18px !important; }
+
+#body {
+  font-family: "Work Sans", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif; }
+  #body #chapter h1 {
+    text-align: center;
+    text-transform: uppercase;
+    color: #222;
+    font-weight: 200;
+    border-bottom: 4px solid #F0F2F4;
+    margin: .85rem 0 1.7rem 0;
+    text-rendering: optimizeLegibility; }
+  #body #chapter h3 {
+    text-align: center;
+    margin: .85rem 0 1.7rem 0;
+    text-rendering: optimizeLegibility; }
+  #body #chapter p {
+    text-align: center;
+    font-size: 1.2rem; }
 
 .searchbox {
   margin-top: .5rem;
@@ -23,13 +41,13 @@ body {
   .searchbox label {
     color: rgba(255, 255, 255, 0.8);
     position: absolute;
-    left: 10px;
-    top: 3px; }
+    left: 7px;
+    top: 1px; }
   .searchbox span {
     color: rgba(255, 255, 255, 0.6);
     position: absolute;
-    right: 10px;
-    top: 3px;
+    right: 9px;
+    top: 1px;
     cursor: pointer; }
 
 #sidebar {
@@ -53,6 +71,20 @@ body {
   #sidebar ul ul a {
     padding-left: 2.5rem;
     background: rgba(0, 0, 0, 0.15); }
+  #sidebar ul .active {
+    color: #FFF;
+    position: relative; }
+    #sidebar ul .active:after {
+      content: '';
+      width: 0px;
+      height: 0px;
+      border-style: solid;
+      border-width: 10px 10px 10px 0;
+      border-color: transparent #FFF transparent transparent;
+      position: absolute;
+      vertical-align: middle;
+      right: 0px;
+      top: 17px; }
   #sidebar [data-toggle="collapse"] {
     position: relative; }
   #sidebar [aria-expanded="true"] {

@@ -5,7 +5,7 @@ var browserSync = require('browser-sync');
 gulp.task('sass', function () {  
 	gulp.src('assets/scss/app.scss')
 		.pipe(sass({includePaths: ['scss']}))
-		.pipe(gulp.dest('docs/css'))
+		.pipe(gulp.dest('docs/assets/css'))
 	    .pipe(browserSync.stream());
 });
 
