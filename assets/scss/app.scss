@@ -19,7 +19,7 @@ body {
 }
 
 
-
+////// BODY //////
 #body{
 	font-family: $font-family-1;
 	text-rendering: optimizeLegibility;
@@ -98,16 +98,17 @@ body {
 		}
 		
 		&.nav-next {
- 	   		right: 0;
+			right: 0;
 		}
 
 		&:hover{
 			color: $link-color-hover;
 			text-decoration: none;
 		}
+
 	}
 	
-
+	//// Chapter ////
 	#chapter{
 		display: flex;
 		align-items: center;
@@ -147,44 +148,72 @@ body {
 }
 
 
-.searchbox {
-	margin-top: .5rem;
+//// BREADCRUMBS ////
+#breadcrumbs {
+	height: auto;
+	display: block;
+	margin-bottom: 0;
+	padding-left: 0;
+	line-height: 1.4;
+
 	position: relative;
-	border: 1px solid rgba($dark, .05);
-	background: rgba($dark, .15);
-	border-radius: 4px;
-	font-size: 15px;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
 
-	input {
-		display: inline-block;
-		color: $light;
-		width: 100%;
-		height: 30px;
-		background: transparent;
-		border: 0;
-		padding: 0 25px 0 30px;
-		margin: 0;
-		font-weight: 300;
-	}
-
-	label {
-		color: rgba($light,.8);
-		position: absolute;
-		left: 9px;
-		top: 3px;
-	}
-	
 	span {
-		color: rgba($light,.6);
-		position: absolute;
-		right: 9px;
-		top: 3px;
-		cursor: pointer;
-		//display: none;
+		display: inline-block;
+		padding: 0 1rem;
+	}
+}
+
+#top-bar {
+	background: #F6F6F6;
+	border-radius: 2px;
+	margin: 0rem -1rem 2rem;
+	padding: 0 1rem;
+	height: 0;
+	min-height: 3rem;
+
+	#top-github-link {
+		position: relative;
+		z-index: 1;
+		float: right;
+		display: block;
+		
+		position: relative;
+		top: 50%;
+		-webkit-transform: translateY(-50%);
+		-moz-transform: translateY(-50%);
+		-o-transform: translateY(-50%);
+		-ms-transform: translateY(-50%);
+		transform: translateY(-50%);
+	}
+}
+
+#sidebar-toggle {
+	display:none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 63px;
+	height: 63px;
+	padding: 14px;
+	color: rgba($link-color-hover, .5);
+	z-index: 9;
+
+
+	&:hover{
+		color: $link-color-hover;
 	}
 }
 
 
+
+////// SIDEBAR //////
 #sidebar {
 
 	position: fixed;
@@ -192,8 +221,9 @@ body {
 	width: 300px;
 	bottom: 0;
 	left: 0;
-//	font-weight: 400;
-//	font-size: 15px;
+	z-index: 10;
+	//	font-weight: 400;
+	//	font-size: 15px;
 
 
 	// min-width: 300px;
@@ -254,8 +284,6 @@ body {
 	}
 
 
-	
-
 	[data-toggle="collapse"] {
 		position: relative;
 		
@@ -267,44 +295,96 @@ body {
 			//     right: 1rem;
 			// }
 		}
-		[aria-expanded="true"] {
-			background: rgba($dark, .15);
-			
-			&:before {
-				//     content: "\f0d8";
-				outline: none;
-			}
+
+	[aria-expanded="true"] {
+		background: rgba($dark, .15);
+		
+		&:before {
+			//     content: "\f0d8";
+			outline: none;
 		}
+	}
+	
+	&.toggled {
+		margin-left: -250px;
+	}
+	
+	#header {
+		background: $sidebar-header-bg;
+		color: $light;
+		text-align: center;
+		padding: 1rem;
+		border-bottom: 4px solid rgba($dark, .2);
+
+		a {
+			color: rgba($light, 0.8);
+			font-size: 41px;
+			font-weight: bold;
+		}
+	}
+
+	//// Searchbox ////
+	.searchbox {
+		margin-top: .5rem;
+		position: relative;
+		border: 1px solid rgba($dark, .05);
+		background: rgba($dark, .15);
+		border-radius: 4px;
+		font-size: 15px;
+
+		input {
+			display: inline-block;
+			color: $light;
+			width: 100%;
+			height: 30px;
+			background: transparent;
+			border: 0;
+			padding: 0 25px 0 30px;
+			margin: 0;
+			font-weight: 300;
+		}
+
+		label {
+			color: rgba($light,.8);
+			position: absolute;
+			left: 9px;
+			top: 3px;
+		}
+		
+		span {
+			color: rgba($light,.6);
+			position: absolute;
+			right: 9px;
+			top: 3px;
+			cursor: pointer;
+			//display: none;
+		}
+	}
+
+
+}
+
+.content {
+	width: 100%;
+}
+
+@media (max-width: 800px) {
+	#sidebar {
+		margin-left: -300px;
 		
 		&.toggled {
-			margin-left: -250px;
-		}
-		
-		#header {
-			background: $sidebar-header-bg;
-			color: $light;
-			text-align: center;
-			padding: 1rem;
-			border-bottom: 4px solid rgba($dark, .2);
-
-			a {
-				color: rgba($light, 0.8);
-				font-size: 41px;
-				font-weight: bold;
-			}
+			margin-left: 0;
 		}
 	}
 
-	.content {
-		width: 100%;
+	#body{
+		margin-left: 0px;
 	}
 
-	@media (max-width: 768px) {
-		.sidebar {
-			margin-left: -250px;
-			
-			&.toggled {
-				margin-left: 0;
-			}
-		}
+
+	#sidebar-toggle {
+		display: inline;
 	}
+
+}
+
