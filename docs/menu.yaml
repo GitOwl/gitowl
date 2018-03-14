@@ -13,3 +13,7 @@
   items:
   - title: 404 File not found 
     file: 404-not-found
+
+- id: 3
+  title: Finals
+  file: finals

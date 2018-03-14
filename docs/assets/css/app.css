@@ -58,7 +58,8 @@ body {
       vertical-align: middle;
       text-align: center; }
     #body .nav.nav-next {
-      right: 0; }
+      right: 0;
+      margin-right: 0px; }
     #body .nav:hover {
       color: #0056b3;
       text-decoration: none; }
@@ -126,7 +127,8 @@ body {
   #breadcrumbs a {
     color: #212529; }
     #breadcrumbs a:hover {
-      color: #0056b3; }
+      color: #0056b3;
+      text-decoration: underline !important; }
 
 #top-bar {
   background: #F6F6F6;

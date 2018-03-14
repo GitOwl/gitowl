@@ -3,13 +3,8 @@ $(function(){
 	var config
 	var menu
 
-	if(location.hash.length > 0){
-
-		//console.log(location.hash)
-	} 
-
-
 	////-- Load file: Config --////
+
 	$.get( "./config.yaml", function(yaml) {
 		config = jsyaml.load(yaml)
 	}).fail(function(req, textStatus) {
@@ -18,13 +13,21 @@ $(function(){
 	});
 
 	////-- Load file: Menu --////
+
 	$.get( "./menu.yaml", function(yaml) {
 		menu = jsyaml.load(yaml)
-		//console.log(menu)
-		
-		$.each(jsyaml.load(yaml), function(key, values) { 
-			$('#list').append(createMenuItem(key, values))
+
+		$.each(menu, function(key, item) { 
+			$('#list').append(createMenuItem(key, item))
 		})
+
+		if(location.hash.length > 0){
+			let elem = $("#list li a[href='"+location.hash+"']")
+			
+			changePage(elem)
+			 $('.active').closest('ul').collapse("show") 
+		} 
+	
 	}).fail(function(req, textStatus) {
 		console.log('Error in menu.yaml: ')
 		console.log(req)
@@ -34,21 +37,16 @@ $(function(){
 	})
 
 	////-- OnClick: Sidebar MenuItem --////
+
 	$("#list").on("click", "li a", function() {
-		$('#loading-body').show()
+		changePage($(this))
+	});
 
-		let elem = $(this)
-		
-		changePage(elem)
+	////-- OnClick: Navigator --////
 
-		$("#list li a").removeClass('active')
-		
-		elem.addClass('active')
-		
-		elem.blur()
-
-		$("#list li ul").not(elem.parent().parent()).collapse('hide')
-
+	$("#navigation").on("click", "a", function() {
+		console.log($('.active').data('url'))
+		//changePage($(this))
 	});
 
 	// $("#list").on( "click", ".collapse", function() {
@@ -84,13 +82,17 @@ $(function(){
 
 
 function createMenuItem(key, page){
+	if(page.items == undefined){
+		return `<li><a href="#${page.file}" data-url="${page.file}.md" data-ftitle=${escape(page.title)}><span>${page.id}.</span> ${page.title}</a></li>`
+	}
+
 	html =  `<li>
-				<a href="#${page.folder}" data-url="${page.folder}/chapter.md" data-folder=${page.folder} data-ftitle=${escape(page.title)} data-toggle="collapse"><span>${page.id}. </span> ${page.title}</a>
+				<a href="#${page.folder}" data-url="${page.folder}/chapter.md" data-ftitle=${escape(page.title)} data-toggle="collapse"><span>${page.id}. </span> ${page.title}</a>
 				<ul id="${page.folder}" class="list-unstyled collapse">`
 
 	$.each(page.items, function(key2, item) { 
 		let path = page.folder +'/'+item.file
-		html += `<li><a href="#${path}" data-url="${path}.md" data-folder=${page.folder} data-ftitle=${escape(page.title)} data-title=${escape(item.title)}  ><span>${page.id}.${(key2+1)}</span> ${item.title}</a></li>`
+		html += `<li><a href="#${path}" data-url="${path}.md" data-ftitle=${escape(page.title)} data-title=${escape(item.title)}  ><span>${page.id}.${(key2+1)}</span> ${item.title}</a></li>`
 	});
 													
 	return html + '</ul></li>'
@@ -100,7 +102,8 @@ function createMenuItem(key, page){
 
 function changePage(elem){
 	let url = elem.data('url')
-	let path = url.split("/#!/")[0].split("/");
+
+	$('#loading-body').show()
 
 	$.get("pages/"+url, function(data) {
 		$('#error-body').hide()
@@ -109,16 +112,25 @@ function changePage(elem){
 			if(!$("#chapter").length > 0){
 				$("#body-inner").wrap("<div id='chapter'></div>")					
 			}
+			location.hash = elem.prop('hash')
 			
 		} else {
 			$('#chapter').contents().unwrap()
 		}
 	
-		$('#top-bar').remove()
 		$('#body-content').prepend(createBreadcrumb(elem.data()))
-		$('#body-inner').html(new showdown.Converter({noHeaderId: 'true'}).makeHtml(data))
 		
+		let sd = new showdown.Converter({noHeaderId: 'true',
+										 parseImgDimensions: 'true',
+										 simplifiedAutoLink: 'true',
+										 excludeTrailingPunctuationFromURLs: 'true',
+										 strikethrough: 'true',
+										 tables: 'true',
+										 tasklists: 'true'
+										})
 
+		$('#body-inner').html(sd.makeHtml(data))
+		
 
 	}).fail(function(req, textStatus) {
 		//console.log(req)
@@ -127,22 +139,32 @@ function changePage(elem){
 	}).always(function() {
 		$('#loading-body').hide()
 	})
+
+
+	$("#list li a").removeClass('active')	
+	elem.addClass('active')
+	
+	elem.blur()
+
+	$("#list li ul").not(elem.parent().parent()).collapse('hide')
+}
+
+function splitUrl(url){
+	return url.split("/#!/")[0].split("/");
 }
 
 
-
-
 function createBreadcrumb(elem){
-	console.log(elem)
-
-	// elem.folder cambiar al title de folder
+	let folder = splitUrl(elem.url)[0]
+	
+	$('#top-bar').remove()
 
 	let html = `<div id="top-bar">
 					<div id="top-github-link">
 						<a class="github-link" href="#"><i class="fa fa-pencil"></i></a>
 					</div>
 					<div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-						<a href="#${elem.folder}" itemprop="url" class="bc-url"><span class="bc-folder" itemprop="title">${unescape(elem.ftitle)}</span></a>`
+						<a href="#${folder}" itemprop="url" class="bc-url"><span class="bc-folder" itemprop="title">${unescape(elem.ftitle)}</span></a>`
 	
 	if(elem.title !== undefined){
 		html +=	`<i class="fa fa-angle-right bc-separator"></i>

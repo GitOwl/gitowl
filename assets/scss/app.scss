@@ -99,6 +99,7 @@ body {
 		
 		&.nav-next {
 			right: 0;
+			margin-right: 0px;
 		}
 
 		&:hover{
@@ -200,6 +201,7 @@ body {
 
 		&:hover{
 			color: #0056b3;
+		    text-decoration: underline !important;
 		}
 	}
 }

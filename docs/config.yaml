@@ -1,3 +1,9 @@
+- theme: default
+- redirectHome: on
+- nav:
+  - prev: on
+    next: on
+
 - bullet:
   - level1: on
     level2: off
@@ -15,3 +21,13 @@
     path: v1.0
   - title: v2.0
     path: v2.0
+
+
+- showdown:
+  - noHeaderId: true
+    parseImgDimensions: true
+    simplifiedAutoLink: true
+    excludeTrailingPunctuationFromURLs: true
+    strikethrough: true
+    tables: true
+    tasklists: true
