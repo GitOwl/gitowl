@@ -136,6 +136,7 @@ body {
 		h3 {
 			text-align: center;
 			margin: .85rem 0 1.7rem 0;
+			color: #868686;
 
 			text-rendering: optimizeLegibility;
 		}
@@ -145,7 +146,32 @@ body {
 			font-size: 1.2rem;
 		}
 	}
+
 }
+
+#loading-body{
+	display: none;
+	position: fixed;
+	color: rgba($dark, 0.8);
+	top: 25%;
+	right: 41%;
+}
+
+#error-body{
+	display: none;
+	position: fixed;
+	top: 25%;
+	right: 40%;
+	color: rgba($dark, 0.8);
+	text-align: center;
+	font-weight: bold;
+	font-size: 38px;
+
+	p{
+		margin-top: 0rem;
+	}
+}
+
 
 
 //// BREADCRUMBS ////
@@ -168,11 +194,19 @@ body {
 		display: inline-block;
 		padding: 0 1rem;
 	}
+
+	a {
+		color: #212529;
+
+		&:hover{
+			color: #0056b3;
+		}
+	}
 }
 
 #top-bar {
 	background: #F6F6F6;
-	border-radius: 2px;
+	border-radius: 10px !important;
 	margin: 0rem -1rem 2rem;
 	padding: 0 1rem;
 	height: 0;
@@ -215,22 +249,33 @@ body {
 
 ////// SIDEBAR //////
 #sidebar {
-
 	position: fixed;
 	top: 0;
 	width: 300px;
 	bottom: 0;
 	left: 0;
 	z-index: 10;
+	transition: all 0.3s ease;
+	background-color: $sidebar-bg; 
+	
 	//	font-weight: 400;
 	//	font-size: 15px;
-
-
 	// min-width: 300px;
 	// max-width: 300px;
 	// min-height: 100vh;
-	transition: all 0.3s ease;
-	background-color: $sidebar-bg; 
+
+	#loading-sidebar, #error-sidebar{
+		position: fixed;
+		left: 115px;
+		top: 300px;
+		color: rgba($light, 0.8);
+		text-align: center;
+		font-weight: bold;
+	}
+
+	#error-sidebar{
+		display: none;
+	}
 	
 	ul {
 		&#list{
@@ -385,6 +430,11 @@ body {
 	#sidebar-toggle {
 		display: inline;
 	}
+
+	#loading-sidebar, #error-sidebar{
+		display:none;
+	}
+
 
 }
 

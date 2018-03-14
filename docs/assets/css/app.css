@@ -82,10 +82,30 @@ body {
     #body #chapter h3 {
       text-align: center;
       margin: .85rem 0 1.7rem 0;
+      color: #868686;
       text-rendering: optimizeLegibility; }
     #body #chapter p {
       text-align: center;
       font-size: 1.2rem; }
+
+#loading-body {
+  display: none;
+  position: fixed;
+  color: rgba(0, 0, 0, 0.8);
+  top: 25%;
+  right: 41%; }
+
+#error-body {
+  display: none;
+  position: fixed;
+  top: 25%;
+  right: 40%;
+  color: rgba(0, 0, 0, 0.8);
+  text-align: center;
+  font-weight: bold;
+  font-size: 38px; }
+  #error-body p {
+    margin-top: 0rem; }
 
 #breadcrumbs {
   height: auto;
@@ -103,10 +123,14 @@ body {
   #breadcrumbs span {
     display: inline-block;
     padding: 0 1rem; }
+  #breadcrumbs a {
+    color: #212529; }
+    #breadcrumbs a:hover {
+      color: #0056b3; }
 
 #top-bar {
   background: #F6F6F6;
-  border-radius: 2px;
+  border-radius: 10px !important;
   margin: 0rem -1rem 2rem;
   padding: 0 1rem;
   height: 0;
@@ -146,6 +170,15 @@ body {
   z-index: 10;
   transition: all 0.3s ease;
   background-color: #3A424D; }
+  #sidebar #loading-sidebar, #sidebar #error-sidebar {
+    position: fixed;
+    left: 115px;
+    top: 300px;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    font-weight: bold; }
+  #sidebar #error-sidebar {
+    display: none; }
   #sidebar ul#list {
     padding: 15px 0px; }
   #sidebar ul li span {
@@ -235,4 +268,6 @@ body {
   #body {
     margin-left: 0px; }
   #sidebar-toggle {
-    display: inline; } }
+    display: inline; }
+  #loading-sidebar, #error-sidebar {
+    display: none; } }

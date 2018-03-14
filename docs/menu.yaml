@@ -1,16 +1,15 @@
 - id: 1
-  title: Basic
-  dir: Basic
+  title: Basics
+  folder: basic
   items:
-  - title: What is GitHow? 
+  - title: What is GitHow?
     file: what-is-githow
-
-  - title: Requirements 
+  - title: Requirements
     file: requirements
     
 - id: 2
-  title: Troubleshooting
-  dir: Troubleshooting
+  title: Troubleshootings
+  folder: troubleshooting
   items:
   - title: 404 File not found 
     file: 404-not-found
