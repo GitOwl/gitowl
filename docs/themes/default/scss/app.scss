@@ -156,6 +156,10 @@ body {
 	color: rgba($dark, 0.8);
 	top: 25%;
 	right: 41%;
+	background: $light;
+	border: 1px solid rgba($dark, 0.05);
+	border-radius: 70px;
+	padding: 20px;
 }
 
 #error-body{
@@ -278,7 +282,7 @@ body {
 	#error-sidebar{
 		display: none;
 	}
-	
+
 	ul {
 		&#list{
 			padding: 15px 0px;
@@ -288,6 +292,7 @@ body {
 			font-weight: 900;
 			color: rgba($light, .3);
 			font-size: 15px;
+			display:none;
 		}
 
 		li a {

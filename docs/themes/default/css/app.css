@@ -94,7 +94,11 @@ body {
   position: fixed;
   color: rgba(0, 0, 0, 0.8);
   top: 25%;
-  right: 41%; }
+  right: 41%;
+  background: #FFF;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 70px;
+  padding: 20px; }
 
 #error-body {
   display: none;
@@ -186,7 +190,8 @@ body {
   #sidebar ul li span {
     font-weight: 900;
     color: rgba(255, 255, 255, 0.3);
-    font-size: 15px; }
+    font-size: 15px;
+    display: none; }
   #sidebar ul li a {
     display: block;
     padding: .75rem 1.5rem;

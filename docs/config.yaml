@@ -1,33 +1,35 @@
-- theme: default
-- redirectHome: on
-- nav:
-  - prev: on
-    next: on
+logo: GitHow
+theme: default
+redirectHome: true
+nav:
+  prev: true
+  next: true
 
-- bullet:
-  - level1: on
-    level2: off
+bullet:
+  level1: true
+  level2: true
 
-- lang: off
+lang:
+  active: false
   list:
   - title: Español
     path: es
   - title: English
     path: en
 
-- versions: off
+versions:
+  active: false
   list:
   - title: v1.0
     path: v1.0
   - title: v2.0
     path: v2.0
 
-
-- showdown:
-  - noHeaderId: true
-    parseImgDimensions: true
-    simplifiedAutoLink: true
-    excludeTrailingPunctuationFromURLs: true
-    strikethrough: true
-    tables: true
-    tasklists: true
+showdown:
+  noHeaderId: true
+  parseImgDimensions: true
+  simplifiedAutoLink: true
+  excludeTrailingPunctuationFromURLs: true
+  strikethrough: true
+  tables: true
+  tasklists: true
