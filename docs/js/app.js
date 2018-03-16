@@ -14,7 +14,7 @@ $(function(){
 		////-- LOAD ROUTES --////		
 		$.get( "./routes.yaml", function(file) {
 			$.each(jsyaml.load(file), function(key, item) { 
-				console.log(item.folder)
+				//console.log(item.folder)
 				$('#list').append(createMenuItem(key, item))
 			})
 
