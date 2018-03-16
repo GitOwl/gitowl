@@ -4,7 +4,7 @@ var config
 $(function(){
 
 	////-- LOAD CONFIG --////
-	$.get( "./config.yaml", function(file) {
+	$.get('./config.yaml', function(file) {
 		config = jsyaml.load(file)
 		$('.logo').html(config.logo)
 	}).fail(function(req, textStatus) {
@@ -12,17 +12,17 @@ $(function(){
 	}).always(function() {
 
 		////-- LOAD ROUTES --////		
-		$.get( "./routes.yaml", function(file) {
-			$.each(jsyaml.load(file), function(key, item) { 
+		$.get('./routes.yaml', function(file) {
+			$.each(jsyaml.load(file), function(i, item) { 
 				//console.log(item.folder)
-				$('#list').append(createMenuItem(key, item))
+				$('#list').append(createMenuItem(i, item))
 			})
 
 			if(location.hash.length > 0){
 				let elem = $("#list li a[href='"+location.hash+"']")
 				
 				changePage(elem)
-				 $('.active').closest('ul').collapse("show") 
+				 $('.active').closest('ul').collapse('show') 
 			} 
 		
 		}).fail(function(req, textStatus) {
@@ -35,24 +35,41 @@ $(function(){
 		})
 	})
 
-	$("#search-by").on("keyup", function() {
-		$("#list li ul").collapse('show')
-		let value = $(this).val().toLowerCase();
-		$("#list li").filter(function() {
-			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-		});
+	$('#search-by').on('keyup', function() {
+
+		let search = $(this).val()
+
+		$('.sb-close').show()
+
+		$('#list li').filter(function() {
+			$(this).toggle($(this).text().toLowerCase().indexOf(search.toLowerCase()) > -1)
+		})
 
 		if($(this).val().length == 0){
-			$("#list li ul").not($('.active').parent().parent()).collapse('hide')
+			$('#list li ul').not($('.active').parent().parent()).collapse('hide')
+		}else{
+			$('#list li ul').collapse('show')
 		}
-	});
+
+		$('text').each(function(i, item) {
+			let re = new RegExp(search, 'i')
+			$(item).html($(item).text().replace(re, '<high>'+re.exec($(item).text())+'</high>'))
+		})
 
 
-	$("#list").on("click", "li a", function() {
+	})
+
+	$('.searchbox').on('click','.sb-close',  function() {
+		$('#search-by').val('').keyup()
+		$('.sb-close').hide()
+	})
+
+
+	$('#list').on('click', 'li a', function() {
 		changePage($(this))
 	});
 
-	$("#navigation").on("click", "a", function() {
+	$('#navigation').on('click', 'a', function() {
 		let elem = $($("a[href='"+$(this).attr('href')+"']")).show().click()
 		elem.parent().parent().collapse('show')
 	});
@@ -66,22 +83,23 @@ $(function(){
 });
 
 
-function createMenuItem(key, page){
+function createMenuItem(i, page){
 	if(page.items == undefined){
 		return `<li><a href="#${page.file}" data-url="${page.file}.md" data-ftitle="${escape(page.title)}" class="menuitem">
-					<span class="b-level1">${page.id}.</span> ${page.title}
+					<span class="b-level1">${page.id}. </span><text>${page.title}</text>
 				</a></li>`
 	}
 
 	let html = `<li>
 				 <a href="#${page.folder}" data-url="${page.folder}/chapter.md" data-ftitle="${escape(page.title)}" data-toggle="collapse" class="menuitem">
-					<span class="b-level1">${page.id}. </span> ${page.title}</a>
-						<ul id="${page.folder}" class="list-unstyled collapse">`
+					<span class="b-level1">${page.id}. </span><text>${page.title}</text>
+				 </a>
+					<ul id="${page.folder}" class="list-unstyled collapse">`
 
-	$.each(page.items, function(key2, item) { 
+	$.each(page.items, function(j, item) { 
 		let path = page.folder +'/'+item.file
 		html += `<li><a href="#${path}" data-url="${path}.md" data-ftitle="${escape(page.title)}" data-title="${escape(item.title)}" class="menuitem">
-					<span class="b-level2">${page.id}.${(key2+1)}</span> ${item.title}
+					<span class="b-level2">${page.id}.${(j+1)} </span> <text>${item.title}</text>
 				</a></li>`
 	});
 													
@@ -97,12 +115,12 @@ function changePage(elem){
     
 	$('#loading-body').show()
 
-	$.get("pages/"+url, function(data) {
+	$.get('pages/'+url, function(data) {
 		$('#error-body').hide()
 		
 		if(url.endsWith('/chapter.md')){				
-			if(!$("#chapter").length > 0){
-				$("#body-inner").wrap("<div id='chapter'></div>")					
+			if(!$('#chapter').length > 0){
+				$('#body-inner').wrap('<div id="chapter"></div>')					
 			}
 			location.hash = elem.prop('hash')
 			
@@ -124,16 +142,16 @@ function changePage(elem){
 	})
 
 
-	$("#list li a").removeClass('active')	
+	$('#list li a').removeClass('active')	
 	elem.addClass('active').blur()
 
-	$("#list li ul").not(elem.parent().parent()).collapse('hide')
+	$('#list li ul').not(elem.parent().parent()).collapse('hide')
 	
 
 
-	$.each($('.menuitem'), function(key, menuitem) { 
+	$.each($('.menuitem'), function(i, menuitem) { 
 		if($(menuitem).hasClass('active')) {
-			createNavs(key)
+			createNavs(i)
 			return false;
 		}
 	})
@@ -141,7 +159,7 @@ function changePage(elem){
 }
 
 function splitUrl(url){
-	return url.split("/#!/")[0].split("/");
+	return url.split('/#!/')[0].split('/');
 }
 
 function createNavs(active){

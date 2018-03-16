@@ -5,10 +5,11 @@ $sidebar-bg: #3A424D;
 $sidebar-header-bg: #3891C9;
 
 $font-family-1: "Work Sans","Helvetica","Tahoma","Geneva","Arial",sans-serif;
-$font-family-2: "Novacento Sans Wide","Helvetica","Tahoma","Geneva","Arial",sans-serif;
 
 $code-color-bg: #efefef;
 $link-color-hover: #0056b3;
+
+$footer-color-bg: #353C46;
 
 
 body {
@@ -315,6 +316,13 @@ body {
 
 		}
 
+		high{
+			background: orange;
+			color: black;
+			border-radius: 3px;
+		}
+
+
 		.active {
 			color: #FFF;
 			position:relative;
@@ -403,14 +411,41 @@ body {
 			top: 3px;
 		}
 		
-		span {
+		.sb-close {
 			color: rgba($light,.6);
 			position: absolute;
-			right: 9px;
-			top: 3px;
+			right: 0px;
+			top: 0px;
 			cursor: pointer;
-			//display: none;
+			padding: 3px 9px;
+			display: none;
 		}
+	}
+
+	#footer {
+		color: #b3b3b3;
+		font-size: 13px;
+		background-color: $footer-color-bg;
+		position: absolute;
+		bottom: 0;
+		text-align: center;
+		width: 100%;
+		padding: 2px;
+
+		p {
+			margin: 0;
+			a{
+				color: $light;
+				font-weight: bold;
+
+				&:hover{
+					color: #D2D2D2;
+				}
+			}
+
+		}
+
+
 	}
 
 
@@ -419,6 +454,7 @@ body {
 .content {
 	width: 100%;
 }
+
 
 @media (max-width: 800px) {
 	#sidebar {

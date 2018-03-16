@@ -203,6 +203,10 @@ body {
   #sidebar ul ul a {
     padding-left: 2.5rem;
     background: rgba(0, 0, 0, 0.15); }
+  #sidebar ul high {
+    background: orange;
+    color: black;
+    border-radius: 3px; }
   #sidebar ul .active {
     color: #FFF;
     position: relative; }
@@ -257,12 +261,30 @@ body {
       position: absolute;
       left: 9px;
       top: 3px; }
-    #sidebar .searchbox span {
+    #sidebar .searchbox .sb-close {
       color: rgba(255, 255, 255, 0.6);
       position: absolute;
-      right: 9px;
-      top: 3px;
-      cursor: pointer; }
+      right: 0px;
+      top: 0px;
+      cursor: pointer;
+      padding: 3px 9px;
+      display: none; }
+  #sidebar #footer {
+    color: #b3b3b3;
+    font-size: 13px;
+    background-color: #353C46;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    padding: 2px; }
+    #sidebar #footer p {
+      margin: 0; }
+      #sidebar #footer p a {
+        color: #FFF;
+        font-weight: bold; }
+        #sidebar #footer p a:hover {
+          color: #D2D2D2; }
 
 .content {
   width: 100%; }
