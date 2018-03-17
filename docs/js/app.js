@@ -169,11 +169,14 @@ function createNavs(active){
 	let prev = $($('.menuitem')[active-1])
 	let next = $($('.menuitem')[active+1])
 
-	let htmlPrev = `<a class="nav nav-prev" href="${prev.attr('href')}" data-url="${prev.data('url')}" data-ftitle="${prev.data('ftitle')}">
+	let htmlPrev = `<a href="${prev.attr('href')}" class="nav nav-prev col-xs-4" data-url="${prev.data('url')}" data-ftitle="${prev.data('ftitle')}">
 						<i class="fa fa-chevron-left"></i>
 					</a>`
 	
-	let htmlNext = `<a class="nav nav-next" href="${next.attr('href')}" data-url="${next.data('url')}" data-ftitle="${next.data('ftitle')}">
+	let htmlMenu = `<a href="#" id="sidebar-toggle" class="nav col-xs-4" data-sidebar-toggle><i class="fa fa-bars"></i></a>`
+
+
+	let htmlNext = `<a href="${next.attr('href')}" class="nav nav-next col-xs-4" data-url="${next.data('url')}" data-ftitle="${next.data('ftitle')}">
 						<i class="fa fa-chevron-right"></i>
 					</a>`
 
@@ -181,7 +184,7 @@ function createNavs(active){
 	if(next.data('url') == undefined || !config.nav.next) htmlNext = ''
 	if(prev.data('url') == undefined || !config.nav.prev) htmlPrev = ''
 
-	$('#navigation').html(htmlPrev+htmlNext);
+	$('#navigation').html(htmlPrev+htmlMenu+htmlNext);
 }
 
 
@@ -192,7 +195,7 @@ function createBreadcrumb(elem){
 	$('#top-bar').remove()
 
 	let html = `<div id="top-bar">
-					<div id="top-github-link">
+					<div id="top-bar-buttons">
 						<a class="github-link" href="#"><i class="fa fa-pencil"></i></a>
 					</div>
 					<div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">

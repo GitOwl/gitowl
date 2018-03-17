@@ -57,6 +57,9 @@ body {
       display: table-cell;
       vertical-align: middle;
       text-align: center; }
+    #body .nav.nav-prev {
+      left: 300px;
+      margin-left: 0px; }
     #body .nav.nav-next {
       right: 0;
       margin-right: 0px; }
@@ -141,11 +144,11 @@ body {
   padding: 0 1rem;
   height: 0;
   min-height: 3rem; }
-  #top-bar #top-github-link {
+  #top-bar #top-bar-buttons {
     position: relative;
     z-index: 1;
     float: right;
-    display: block;
+    display: none;
     position: relative;
     top: 50%;
     -webkit-transform: translateY(-50%);
@@ -159,11 +162,10 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 63px;
-  height: 63px;
-  padding: 14px;
+  padding: 0px 14px;
   color: rgba(0, 86, 179, 0.5);
-  z-index: 9; }
+  z-index: 9;
+  font-size: 50px; }
   #sidebar-toggle:hover {
     color: #0056b3; }
 
@@ -306,7 +308,45 @@ body {
       margin-left: 0; }
   #body {
     margin-left: 0px; }
-  #sidebar-toggle {
-    display: inline; }
   #loading-sidebar, #error-sidebar {
-    display: none; } }
+    display: none; }
+  #navigation .nav-prev {
+    left: 0px !important; } }
+
+@media (max-width: 800px) and (min-width: 550px) {
+  #navigation #sidebar-toggle {
+    display: inline;
+    height: 12%;
+    width: 80px;
+    padding: 7px 13px;
+    color: rgba(56, 145, 201, 0.7); }
+    #navigation #sidebar-toggle:hover {
+      color: #0056b3; } }
+
+@media (max-width: 550px) {
+  #navigation {
+    position: fixed;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: #FFF;
+    width: 104vw;
+    height: 50px;
+    z-index: 9;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap; }
+    #navigation .nav {
+      background-color: rgba(255, 255, 255, 0.2);
+      position: relative;
+      width: 33%;
+      color: rgba(0, 86, 179, 0.5); }
+      #navigation .nav.nav-prev {
+        border-right: 1px solid rgba(0, 0, 0, 0.1); }
+      #navigation .nav.nav-next {
+        border-left: 1px solid rgba(0, 0, 0, 0.1); }
+  #body .padding {
+    padding: 3.3rem 1rem; }
+  #body #top-bar {
+    text-align: center;
+    border-radius: 0px !important; }
+    #body #top-bar #top-bar-buttons {
+      display: none; } }
