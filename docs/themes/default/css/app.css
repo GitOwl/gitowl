@@ -169,13 +169,13 @@ body {
 
 #sidebar {
   position: fixed;
-  top: 0;
   width: 300px;
-  bottom: 0;
   left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #3A424D;
   z-index: 10;
-  transition: all 0.3s ease;
-  background-color: #3A424D; }
+  transition: all 0.3s ease; }
   #sidebar #loading-sidebar, #sidebar #error-sidebar {
     position: fixed;
     left: 115px;
@@ -185,8 +185,13 @@ body {
     font-weight: bold; }
   #sidebar #error-sidebar {
     display: none; }
-  #sidebar ul#list {
+  #sidebar .simplebar-scroll-content {
+    margin-bottom: 0px !important; }
+  #sidebar #scroll {
+    height: 100%;
     padding: 15px 0px; }
+  #sidebar ul#list {
+    padding: 0px; }
   #sidebar ul li span {
     font-weight: 900;
     color: rgba(255, 255, 255, 0.3);
@@ -220,7 +225,8 @@ body {
       position: absolute;
       vertical-align: middle;
       right: 0px;
-      top: 17px; }
+      top: 17px;
+      z-index: 11; }
   #sidebar [data-toggle="collapse"] {
     position: relative; }
   #sidebar [aria-expanded="true"] {
@@ -238,7 +244,8 @@ body {
     #sidebar #header a {
       color: rgba(255, 255, 255, 0.8);
       font-size: 41px;
-      font-weight: bold; }
+      font-weight: bold;
+      line-height: 1em; }
   #sidebar .searchbox {
     margin-top: .5rem;
     position: relative;
@@ -256,6 +263,9 @@ body {
       padding: 0 25px 0 30px;
       margin: 0;
       font-weight: 300; }
+      #sidebar .searchbox input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+        opacity: 1; }
     #sidebar .searchbox label {
       color: rgba(255, 255, 255, 0.8);
       position: absolute;

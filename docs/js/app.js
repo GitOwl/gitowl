@@ -7,6 +7,7 @@ $(function(){
 	$.get('./config.yaml', function(file) {
 		config = jsyaml.load(file)
 		$('.logo').html(config.logo)
+		$('#h-title').html(config.title)
 	}).fail(function(req, textStatus) {
 		console.log('Error in config.yaml: '+textStatus)
 	}).always(function() {
@@ -17,6 +18,7 @@ $(function(){
 				//console.log(item.folder)
 				$('#list').append(createMenuItem(i, item))
 			})
+			
 
 			if(location.hash.length > 0){
 				let elem = $("#list li a[href='"+location.hash+"']")
@@ -29,6 +31,7 @@ $(function(){
 			console.log('Error in menu.yaml: ')
 			$('#error-sidebar').show()
 		}).always(function() {
+			// new SimpleBar($('#scroll')[0])
 			if(config.bullet.level1) $('.b-level1').show()
 			if(config.bullet.level2) $('.b-level2').show()
 			$('#loading-sidebar').hide()
@@ -91,10 +94,10 @@ function createMenuItem(i, page){
 	}
 
 	let html = `<li>
-				 <a href="#${page.folder}" data-url="${page.folder}/chapter.md" data-ftitle="${escape(page.title)}" data-toggle="collapse" class="menuitem">
+				 <a href="#${i+1}/${page.folder}" data-url="${page.folder}/chapter.md" data-ftitle="${escape(page.title)}" data-toggle="collapse" class="menuitem">
 					<span class="b-level1">${page.id}. </span><text>${page.title}</text>
 				 </a>
-					<ul id="${page.folder}" class="list-unstyled collapse">`
+					<ul id="${i+1}/${page.folder}" class="list-unstyled collapse">`
 
 	$.each(page.items, function(j, item) { 
 		let path = page.folder +'/'+item.file

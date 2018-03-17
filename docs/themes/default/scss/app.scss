@@ -257,13 +257,16 @@ body {
 ////// SIDEBAR //////
 #sidebar {
 	position: fixed;
-	top: 0;
 	width: 300px;
-	bottom: 0;
 	left: 0;
+	top: 0;
+	bottom: 0;
+	background-color: $sidebar-bg; 
 	z-index: 10;
 	transition: all 0.3s ease;
-	background-color: $sidebar-bg; 
+	
+	//height: 100%;
+	//overflow-x: hidden !important;
 	
 	//	font-weight: 400;
 	//	font-size: 15px;
@@ -284,9 +287,28 @@ body {
 		display: none;
 	}
 
+ .simplebar-scroll-content{
+
+ 		margin-bottom:0px !important;
+ }
+
+	#scroll{
+		height: 100%;
+		//position: absolute;
+		padding: 15px 0px;
+		//border: 2px solid red;	
+	// 		overflow: scroll;
+		//overflow-y: hidden;
+	}
+
 	ul {
 		&#list{
-			padding: 15px 0px;
+			// padding: 15px 0px;
+			padding: 0px;
+			//height: 100%;
+			//border: 4px solid blue;	
+			//position: initial;
+			//overflow-y: scroll;
 		}
 		
 		li span{
@@ -338,6 +360,7 @@ body {
 				vertical-align: middle;
 				right: 0px;
 				top: 17px;
+				z-index: 11;
 			}
 
 		}
@@ -380,6 +403,7 @@ body {
 			color: rgba($light, 0.8);
 			font-size: 41px;
 			font-weight: bold;
+			line-height: 1em;
 		}
 	}
 
@@ -402,6 +426,11 @@ body {
 			padding: 0 25px 0 30px;
 			margin: 0;
 			font-weight: 300;
+
+			&::placeholder{ 
+			    color: rgba($light,.6);
+			    opacity: 1; 
+			}
 		}
 
 		label {
