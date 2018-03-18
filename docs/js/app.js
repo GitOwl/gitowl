@@ -2,23 +2,22 @@
 var config
 
 $(function(){
-
 	////-- LOAD CONFIG --////
 	$.get('./config.yaml', function(file) {
 		config = jsyaml.load(file)
+		$('head').append('<link rel="stylesheet" type="text/css" href="themes/'+config.theme+'/css/app.css"/>')
 		$('.logo').html(config.logo)
 		$('#h-title').html(config.title)
 	}).fail(function(req, textStatus) {
 		console.log('Error in config.yaml: '+textStatus)
 	}).always(function() {
+		$('body').fadeIn(1000)
 
 		////-- LOAD ROUTES --////		
 		$.get('./routes.yaml', function(file) {
 			$.each(jsyaml.load(file), function(i, item) { 
-				//console.log(item.folder)
 				$('#list').append(createMenuItem(i, item))
 			})
-			
 
 			if(location.hash.length > 0){
 				let elem = $("#list li a[href='"+location.hash+"']")
@@ -31,7 +30,6 @@ $(function(){
 			console.log('Error in menu.yaml: ')
 			$('#error-sidebar').show()
 		}).always(function() {
-			// new SimpleBar($('#scroll')[0])
 			if(config.bullet.level1) $('.b-level1').show()
 			if(config.bullet.level2) $('.b-level2').show()
 			$('#loading-sidebar').hide()
@@ -83,8 +81,8 @@ $(function(){
 		elem.parent().parent().collapse('show')
 	});*/
 
-});
 
+});
 
 function createMenuItem(i, page){
 	if(page.items == undefined){

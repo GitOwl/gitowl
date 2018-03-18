@@ -10,59 +10,55 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplebar/2.5.1/simplebar.min.css" integrity="sha256-0ESOUWOySkWswW4t6xSeM4eDJ1xOfzrqf5ZFz5kUans=" crossorigin="anonymous" />
+		<link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet"> 
 		<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> -->
 		
-		<link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet"> 
-
-		<link rel="stylesheet" href="themes/default/css/app.css">
+		<!-- <link rel="stylesheet" href="themes/default/css/app.css"> -->
 	</head>
-	<body>
-		<div class="d-flex align-items-stretch">
+	<body style="display: none">
+
+		<div id="sidebar">		
+			<section id="header">
+				<a id="logo" href="#" class="logo">...</a>
+				<div class="searchbox">
+					<label for="search-by"><i class="fa fa-search"></i></label>
+					<input id="search-by" placeholder="Search..." type="text">
+					<span class="sb-close"><i class="fa fa-close"></i></span>
+				</div>
+			</section>
+
+			<div id="loading-sidebar"><i class="fa fa-spinner fa-pulse fa-3x"></i></div>
+			<div id="error-sidebar"><i class="fa fa-exclamation-triangle fa-3x"></i><p>Error</p></div>
+		
+			<section id="scroll" data-simplebar>
+				<ul id="list" class="list-unstyled"></ul>
+			</section>
+
+			<section id="footer"><p>Power by <a href="https://github.com/FaCuZ/githow">GitHow!</a></p></section>
+		</div>
+
+		<div class="content">
+			<section id="body">
+				<div id="navigation" class="row"></div>
+				<div id="body-content" class="padding highlightable">
+
+					<div id="body-inner">
+						<h1>Bienvenidos</h1>
+						<p>a Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					</div>	
+
+					<div id="loading-body"><i class="fa fa-spinner fa-pulse fa-5x"></i></div>
+					<div id="error-body"><i class="fa fa-exclamation-triangle fa-5x"></i><p>Error</p></div>
+
+				</div>
 
 
-			<div id="sidebar">		
-				<section id="header">
-					<a id="logo" href="#" class="logo">...</a>
-					<div class="searchbox">
-						<label for="search-by"><i class="fa fa-search"></i></label>
-						<input id="search-by" placeholder="Search..." type="text">
-						<span class="sb-close"><i class="fa fa-close"></i></span>
-					</div>
-				</section>
-
-				<div id="loading-sidebar"><i class="fa fa-spinner fa-pulse fa-3x"></i></div>
-				<div id="error-sidebar"><i class="fa fa-exclamation-triangle fa-3x"></i><p>Error</p></div>
-			
-				<section id="scroll" data-simplebar>
-					<ul id="list" class="list-unstyled"></ul>
-				</section>
-
-				<section id="footer"><p>Power by <a href="https://github.com/FaCuZ/githow">GitHow!</a></p></section>
-			</div>
-
-			<div class="content">
-				<section id="body">
-					<div id="navigation" class="row"></div>
-					<div id="body-content" class="padding highlightable">
-
-						<div id="body-inner">
-							<h1>Bienvenidos</h1>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-						</div>	
-
-						<div id="loading-body"><i class="fa fa-spinner fa-pulse fa-5x"></i></div>
-						<div id="error-body"><i class="fa fa-exclamation-triangle fa-5x"></i><p>Error</p></div>
-
-					</div>
-
-
-				</section>
-			</div>
+			</section>
 		</div>
 
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
