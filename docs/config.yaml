@@ -1,5 +1,5 @@
-title: GitHow Framework
-logo: GitHow
+title: GitOwl Framework
+logo: GitOwl
 theme: default
 redirectHome: true
 nav:
@@ -15,6 +15,7 @@ lang:
   list:
   - title: Español
     path: es
+
   - title: English
     path: en
 
@@ -23,14 +24,21 @@ versions:
   list:
   - title: v1.0
     path: v1.0
+
   - title: v2.0
     path: v2.0
 
+# External libraries
 showdown:
-  noHeaderId: true
-  parseImgDimensions: true
-  simplifiedAutoLink: true
-  excludeTrailingPunctuationFromURLs: true
-  strikethrough: true
-  tables: true
-  tasklists: true
+    noHeaderId: true
+    parseImgDimensions: true
+    simplifiedAutoLink: true
+    excludeTrailingPunctuationFromURLs: true
+    strikethrough: true
+    tables: true
+    tasklists: true
+
+perfectscrollbar:
+    suppressScrollX: true
+    minScrollbarLength: 20
+    maxScrollbarLength: 80

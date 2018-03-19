@@ -292,18 +292,17 @@ body {
 		display: none;
 	}
 
- .simplebar-scroll-content{
- 		margin-bottom:0px !important;
- }
-
 	#scroll{
-		height: 100%;
-		padding: 15px 0px;
+		position: relative;
+		height: 90%;
+		padding: 0px;
+		// border: 1px solid red;
 	}
 
 	ul {
 		&#list{
-			padding: 0px;
+			padding: 15px 0px 120px 0px;
+			//border: 2px solid green;
 		}
 		
 		li span{

@@ -1,2 +1,2 @@
-# GitHow
-A simple tool to write, collaborate and publish documents with github pages.
+# GitOwl
+A simple framework to write, collaborate and publish documents with github pages.

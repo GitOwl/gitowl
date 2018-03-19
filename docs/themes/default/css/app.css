@@ -187,13 +187,12 @@ body {
     font-weight: bold; }
   #sidebar #error-sidebar {
     display: none; }
-  #sidebar .simplebar-scroll-content {
-    margin-bottom: 0px !important; }
   #sidebar #scroll {
-    height: 100%;
-    padding: 15px 0px; }
-  #sidebar ul#list {
+    position: relative;
+    height: 90%;
     padding: 0px; }
+  #sidebar ul#list {
+    padding: 15px 0px 120px 0px; }
   #sidebar ul li span {
     font-weight: 900;
     color: rgba(255, 255, 255, 0.3);

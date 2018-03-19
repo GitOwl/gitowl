@@ -2,10 +2,15 @@
 var config
 
 $(function(){
+
+
+
+
 	////-- LOAD CONFIG --////
 	$.get('./config.yaml', function(file) {
 		config = jsyaml.load(file)
-		$('head').append('<link rel="stylesheet" type="text/css" href="themes/'+config.theme+'/css/app.css"/>')
+		// <link rel="stylesheet" href="themes/default/css/app.css"> 
+		$('head').append('<link rel="stylesheet" href="themes/'+config.theme+'/css/app.css"/>')
 		$('.logo').html(config.logo)
 		$('#h-title').html(config.title)
 	}).fail(function(req, textStatus) {
@@ -32,6 +37,7 @@ $(function(){
 		}).always(function() {
 			if(config.bullet.level1) $('.b-level1').show()
 			if(config.bullet.level2) $('.b-level2').show()
+			new PerfectScrollbar('#scroll', config.perfectscrollbar);
 			$('#loading-sidebar').hide()
 		})
 	})
@@ -105,8 +111,6 @@ function createMenuItem(i, page){
 	});
 													
 	return html + '</ul></li>'
-	
-	// <li><a href="#" data-url='Basic/what-is-githow.md'><span>1.</span> Sidebar Link</a></li>
 }
 
 function changePage(elem){
@@ -130,7 +134,7 @@ function changePage(elem){
 		}
 	
 		$('#body-content').prepend(createBreadcrumb(elem.data()))
-		
+
 		let sd = new showdown.Converter(config.showdown)
 
 		$('#body-inner').html(sd.makeHtml(data))
