@@ -92,7 +92,7 @@ $(function(){
 
 function createMenuItem(i, page){
 	if(page.items == undefined){
-		return `<li><a href="#${page.file}" data-url="${page.file}.md" data-ftitle="${escape(page.title)}" class="menuitem">
+		return `<li><a href="#${page.file}" data-url="${page.file}" data-ftitle="${escape(page.title)}" class="menuitem">
 					<span class="b-level1">${page.id}. </span><text>${page.title}</text>
 				</a></li>`
 	}
@@ -105,7 +105,7 @@ function createMenuItem(i, page){
 
 	$.each(page.items, function(j, item) { 
 		let path = page.folder +'/'+item.file
-		html += `<li><a href="#${path}" data-url="${path}.md" data-ftitle="${escape(page.title)}" data-title="${escape(item.title)}" class="menuitem">
+		html += `<li><a href="#${path}" data-url="${path}" data-ftitle="${escape(page.title)}" data-title="${escape(item.title)}" class="menuitem">
 					<span class="b-level2">${page.id}.${(j+1)} </span> <text>${item.title}</text>
 				</a></li>`
 	});
@@ -135,9 +135,14 @@ function changePage(elem){
 	
 		$('#body-content').prepend(createBreadcrumb(elem.data()))
 
-		let sd = new showdown.Converter(config.showdown)
+		if(url.endsWith('.md')){	
+			let sd = new showdown.Converter(config.showdown)
 
-		$('#body-inner').html(sd.makeHtml(data))
+			$('#body-inner').html(sd.makeHtml(data))
+		}else{
+			$('#body-inner').html(data)
+
+		}
 		
 	}).fail(function(req, textStatus) {
 		$('#body-inner').html('')
