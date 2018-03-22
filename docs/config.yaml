@@ -25,8 +25,7 @@ versions:
   active: true
   hide: false
   list:
-  - id: 1
-    title: v1.0
+  - title: v1.0
     default: true
     file: routes-1
 

@@ -76,19 +76,17 @@ $(function(){
 
 	$('#list').on('click', 'li a', function() {
 		changePage($(this))
-	});
+		$('#sidebar').removeClass('toggled')
+	})
 
-	$('#navigation').on('click', 'a', function() {
-		let elem = $($("a[href='"+$(this).attr('href')+"']")).show().click()
+	$('#navigation').on('click', 'a.nav-prev, a.nav-next', function() {
+		let elem = $($("a[href='"+$(this).attr('href')+"']")).show()
 		elem.parent().parent().collapse('show')
-	});
+		changePage(elem)
 
-	/*$("#top-bar").on("click", "a span", function() {
-		console.log('ble')
-		let elem = $($("a[href='"+$(this).attr('href')+"']")).show().click()
-		elem.parent().parent().collapse('show')
-	});*/
-
+	}).on('click','a.nav-menu', function () {
+		$('#sidebar').addClass('toggled')
+	})
 
 });
 
@@ -96,7 +94,7 @@ $(function(){
 var	create = {
 	////////////// DROPS //////////////
 	drop(list, value){
-		let elem = $("#drop-"+value);
+		let elem = $("#drop-"+value)
 
 		$.each(list, function(i, item) { 
 			let icon = ''
@@ -143,7 +141,7 @@ var	create = {
 							<i class="fa fa-chevron-left"></i>
 						</a>`
 		
-		let htmlMenu = `<a href="#" id="sidebar-toggle" class="nav col-xs-4" data-sidebar-toggle><i class="fa fa-bars"></i></a>`
+		let htmlMenu = `<a href="#" id="sidebar-toggle" class="nav nav-menu col-xs-4" data-sidebar-toggle><i class="fa fa-bars"></i></a>`
 
 
 		let htmlNext = `<a href="${next.attr('href')}" class="nav nav-next col-xs-4" data-url="${next.data('url')}" data-ftitle="${next.data('ftitle')}">
@@ -167,8 +165,8 @@ var	create = {
 							<a class="github-link" href="#"><i class="fa fa-pencil"></i></a>
 						</div>
 						<div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-							<a href="#${folder}" itemprop="url" class="bc-url"><span class="bc-folder" itemprop="title">${unescape(elem.ftitle)}</span></a>`
-		
+							<span class="bc-folder" itemprop="title">${unescape(elem.ftitle)}</span>`
+					
 		if(elem.title !== undefined){
 			html +=	`<i class="fa fa-angle-right bc-separator"></i>
 						<span class="bc-file" itemprop="title">${unescape(elem.title)}</span>`
@@ -238,6 +236,9 @@ function changePage(elem){
 function splitUrl(url){
 	return url.split('/#!/')[0].split('/');
 }
+
+
+
 
 /// ADENTRO DE READY
 /*
