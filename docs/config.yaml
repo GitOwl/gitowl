@@ -11,18 +11,22 @@ bullet:
   level2: true
 
 lang:
-  active: false
+  active: true
+  hide: false
   list:
   - title: Español
     path: es
 
   - title: English
+    default: true
     path: en
 
 versions:
-  active: false
+  active: true
+  hide: false
   list:
   - title: v1.0
+    default: true
     path: v1.0
 
   - title: v2.0

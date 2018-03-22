@@ -10,6 +10,8 @@ $code-color-bg: #efefef;
 $link-color-hover: #0056b3;
 
 $footer-color-bg: #353C46;
+$dropdown-color-bg: #2f343b;
+
 
 
 body {
@@ -279,6 +281,72 @@ body {
 	// max-width: 300px;
 	// min-height: 100vh;
 
+	.menus{
+		display: flex;
+		-ms-flex-wrap: wrap;
+		flex-wrap: wrap;
+		text-align: center;
+		border-bottom: 1px solid rgba($dark, 0.1);
+		background: rgba($dark, 0.05);
+
+	}
+
+	.dropdown{
+		text-align: center;
+		//margin-top: 1rem; 
+		button{
+			margin: 0px 10px;
+			background: rgba($light, 0);
+			color: rgba($light, 0.8);
+			border-radius: 0px;
+
+			&:active{
+				background: ($dropdown-color-bg, 0.5);		
+				box-shadow: none;		
+			}
+
+			&:focus{
+				background-color: $dropdown-color-bg;			
+				box-shadow: none;		
+			}
+		}
+
+		.dropdown-menu{
+			margin: 0;
+			border-radius: 0 0 0.3rem 0.3rem;
+			box-shadow: 1px 1px 2px $dark;
+			min-width: 0px;
+
+			li a{
+				color: $dark;
+				padding: .5rem 2rem;
+				white-space: nowrap;
+				i{
+					padding-left: 8px;
+					margin-right: -8px;
+				}
+
+			}
+			&.show {
+				background-color: $dropdown-color-bg;
+				a{
+					color: $light;
+				}
+			}
+
+		}
+
+		#menu-version{
+			//	background-color: red;
+		}
+		#menu-lang{
+			//	background-color: green;
+
+		}
+
+	}
+
+
 	#loading-sidebar, #error-sidebar{
 		position: fixed;
 		left: 115px;
@@ -296,13 +364,11 @@ body {
 		position: relative;
 		height: 90%;
 		padding: 0px;
-		// border: 1px solid red;
 	}
 
 	ul {
 		&#list{
-			padding: 15px 0px 120px 0px;
-			//border: 2px solid green;
+			padding: 5px 0px 120px 0px;
 		}
 		
 		li span{

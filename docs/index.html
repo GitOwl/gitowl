@@ -12,14 +12,13 @@
 		<link href="https://cdn.jsdelivr.net/npm/perfect-scrollbar@1.3.0/css/perfect-scrollbar.css" rel="stylesheet"> 
 		<link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet"> 
 		<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> -->
-		
-		<!-- <link rel="stylesheet" href="themes/default/css/app.css"> -->
 	</head>
 	<body style="display: none">
 
 		<div id="sidebar">		
 			<section id="header">
 				<a id="logo" href="#" class="logo">...</a>
+
 				<div class="searchbox">
 					<label for="search-by"><i class="fa fa-search"></i></label>
 					<input id="search-by" placeholder="Search..." type="text">
@@ -27,9 +26,31 @@
 				</div>
 			</section>
 
+
+
 			<div id="loading-sidebar"><i class="fa fa-spinner fa-pulse fa-3x"></i></div>
 			<div id="error-sidebar"><i class="fa fa-exclamation-triangle fa-3x"></i><p>Error</p></div>
 		
+			<div class="menus col col-12">
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button" id="menu-version" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						<i class="fa fa-code"></i> v1.0
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" id="drop-version" aria-labelledby="menu-version">
+					</ul>
+				</div>
+
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button" id="menu-lang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						<i class="fa fa-globe"></i> Español
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" id="drop-lang" aria-labelledby="menu-lang">
+					</ul>
+				</div>
+			</div>
+
 			<section id="scroll">
 				<ul id="list" class="list-unstyled"></ul>
 			</section>

@@ -3,16 +3,18 @@ var config
 
 $(function(){
 
-
-
-
 	////-- LOAD CONFIG --////
 	$.get('./config.yaml', function(file) {
 		config = jsyaml.load(file)
-		// <link rel="stylesheet" href="themes/default/css/app.css"> 
+
 		$('head').append('<link rel="stylesheet" href="themes/'+config.theme+'/css/app.css"/>')
 		$('.logo').html(config.logo)
 		$('#h-title').html(config.title)
+
+		if(config.lang.active) createDrop(config.lang.list, "lang")
+		if(config.versions.active) createDrop(config.versions.list, "version")
+
+
 	}).fail(function(req, textStatus) {
 		console.log('Error in config.yaml: '+textStatus)
 	}).always(function() {
@@ -89,6 +91,21 @@ $(function(){
 
 
 });
+
+
+function createDrop(list, value){
+	let elem = $("#drop-"+value);
+
+	$.each(list, function(i, item) { 
+		let icon = ''
+		
+		if(item.default != undefined){
+			icon = '<i class="fa fa-check"></i>'
+		} 
+			
+		elem.append('<li><a href="#">'+item.title+' '+icon+'</a></li>')
+	})
+}
 
 function createMenuItem(i, page){
 	if(page.items == undefined){
