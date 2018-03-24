@@ -92,6 +92,7 @@ $(function(){
 
 
 var	create = {
+
 	////////////// DROPS //////////////
 	drop(list, value){
 		let elem = $("#drop-"+value)
@@ -101,11 +102,13 @@ var	create = {
 			
 			if(item.default != undefined){
 				icon = '<i class="fa fa-check"></i>'
+				elem.parent().find('text').text(item.title)
 			} 
 				
 			elem.append('<li><a href="#">'+item.title+' '+icon+'</a></li>')
 		})
 	},
+
 
 	////////////// MENUITEM //////////////
 	menuItem(i, page){
@@ -153,6 +156,7 @@ var	create = {
 
 		$('#navigation').html(htmlPrev+htmlMenu+htmlNext);
 	},
+
 
 	////////////// BREADCRUMB //////////////
 	breadcrumb(elem){

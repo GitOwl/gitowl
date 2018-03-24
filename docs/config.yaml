@@ -1,6 +1,7 @@
 title: GitOwl Framework
 logo: <img src="themes/default/img/logo.svg"/>
 theme: default
+
 redirectHome: true
 nav:
   prev: true

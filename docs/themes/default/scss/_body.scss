@@ -1,0 +1,165 @@
+body {
+	font-family: $font-family-1;
+	font-weight: 300;
+	line-height: 1.6;
+	font-size: 18px !important;
+}
+
+.content {
+	width: 100%;
+}
+
+#body{
+	font-family: $font-family-1;
+	text-rendering: optimizeLegibility;
+
+	position: relative;
+	margin-left: 300px;
+	min-height: 100%;
+
+	h1, h2, h3, h4, h5, h6 {
+		margin: .85rem 0 1.7rem 0;
+	}
+
+	pre {
+		padding: 1rem;
+		margin: 2rem 0;
+		background: $code-color-bg;
+		border: 0;
+		border-radius: 2px;
+		line-height: 1.15;
+	}
+
+	h3 {
+		// color: #5e5e5e;
+		color: #212529;
+		font-weight: 500;
+		letter-spacing: -1px;
+		font-size: 2rem;
+	}
+
+	p {
+		margin: 1.7rem 0;
+	}
+
+	b, strong, label, th {
+		font-weight: 600;
+	}
+
+	code {
+		border-radius: 3px;
+		//color: #5e5e5e;
+		color: #212529;
+		background: $code-color-bg;
+		//border: 1px solid #fbf0cb;
+		padding: 0 5px;
+	}
+
+	#top-bar {
+		background: #F6F6F6;
+		border-radius: 2px;
+		margin: 0rem -1rem 2rem;
+		padding: 0 1rem;
+		height: 0;
+		min-height: 3rem;
+	}
+
+	.padding {
+		padding: 3rem 6rem;
+	}
+
+	
+	//// Chapter ////
+	#chapter{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+		padding: 2rem 0;
+
+		#body-inner {
+			padding-bottom: 3rem;
+			max-width: 80%;
+		}
+
+
+		h1 {
+			text-align: center;
+			text-transform: uppercase;
+			color: #222;
+			font-weight: 200;
+			border-bottom: 4px solid #F0F2F4;
+
+			margin: .85rem 0 1.7rem 0;
+			text-rendering: optimizeLegibility;
+		}
+
+		h3 {
+			text-align: center;
+			margin: .85rem 0 1.7rem 0;
+			color: #868686;
+
+			text-rendering: optimizeLegibility;
+		}
+		
+		p {
+			text-align: center;
+			font-size: 1.2rem;
+		}
+	}
+
+}
+
+#loading-body{
+	display: none;
+	position: fixed;
+	color: rgba($dark, 0.8);
+	top: 25%;
+	right: 41%;
+	background: $light;
+	border: 1px solid rgba($dark, 0.05);
+	border-radius: 70px;
+	padding: 20px;
+}
+
+#error-body{
+	display: none;
+	position: fixed;
+	color: rgba($dark, 0.8);
+	top: 25%;
+	right: 40%;
+	text-align: center;
+	font-weight: bold;
+	font-size: 38px;
+
+	p{
+		margin-top: 0rem;
+	}
+}
+
+
+// Tablet and Mobile
+@media (max-width: 800px) {
+
+	#body{
+		margin-left: 0px;
+	}
+}
+
+// Tablet
+@media (max-width: 800px) and (min-width:550px) {
+	//
+}
+
+// Mobile
+@media (max-width: 550px) {
+	
+	#body{
+
+		.padding {
+			padding: 3.3rem 1rem;
+		}
+	}
+
+}
+
