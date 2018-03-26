@@ -21,8 +21,8 @@
 ## Key Features
 
 * Fully compatible with Github Pages
-* No server or database is needed
-* You only need to configure the routes
+* No backend or database is needed
+* Only need to configure the routes
 * It weighs less than 100kb
 * You can write with Markdown or Html
 * Editing directly from Github
