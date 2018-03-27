@@ -7,10 +7,10 @@ $(function(){
 	$.get('./config.yaml', function(file) {
 		config = jsyaml.load(file)
 
-		$('head').append('<link rel="stylesheet" href="themes/'+config.theme+'/css/app.css"/>')
+		$('head').append('<link rel="stylesheet" href="themes/'+config.theme+'/css/style.css"/>')
 		$('.logo').html(config.logo)
 		$('#h-title').html(config.title)
-
+		
 		if(config.lang.active) create.drop(config.lang.list, "lang")
 		if(config.versions.active) create.drop(config.versions.list, "version")
 
