@@ -1,8 +1,10 @@
 {
-  "name": "githow",
+  "name": "facuz/githow",
   "version": "1.0.0",
-  "description": "A simple tool to write, collaborate and publish documents with github pages.",
+  "description": "A powerfull framework ready to write and publish documents with github pages.",
   "main": "gulpfile.js",
+  "author": "Facundo Zaldo",
+  "license": "MIT",
   "directories": {
     "doc": "docs"
   },
@@ -13,8 +15,6 @@
     "type": "git",
     "url": "git+https://github.com/FaCuZ/githow.git"
   },
-  "author": "Facundo Zaldo",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/FaCuZ/githow/issues"
   },
@@ -22,8 +22,8 @@
   "devDependencies": {
     "browser-sync": "^2.23.6",
     "gulp": "^3.9.1",
-    "gulp-rimraf": "^0.2.2",
-    "gulp-sass": "^3.1.0",
-    "yargs": "^11.0.0"
+    "gulp-sass": "^3.2.1",
+    "gulp-storage": "^1.0.6",
+    "yargs": "^11.1.0"
   }
 }

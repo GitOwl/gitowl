@@ -64,8 +64,6 @@ $(function(){
 			let re = new RegExp(search, 'i')
 			$(item).html($(item).text().replace(re, '<high>'+re.exec($(item).text())+'</high>'))
 		})
-
-
 	})
 
 	$('.searchbox').on('click','.sb-close',  function() {
