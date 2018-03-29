@@ -11,9 +11,8 @@ $(function(){
 		$('.logo').html(config.logo)
 		$('#h-title').html(config.title)
 		
-		if(config.lang.active) create.drop(config.lang.list, "lang")
-		if(config.versions.active) create.drop(config.versions.list, "version")
-
+		create.drop('lang')
+		create.drop('version')
 
 	}).fail(function(req, textStatus) {
 		console.log('Error in config.yaml: '+textStatus)
@@ -39,6 +38,7 @@ $(function(){
 		}).always(function() {
 			if(config.bullet.level1) $('.b-level1').show()
 			if(config.bullet.level2) $('.b-level2').show()
+
 			new PerfectScrollbar('#scroll', config.perfectscrollbar);
 			$('#loading-sidebar').hide()
 		})
@@ -92,10 +92,13 @@ $(function(){
 var	create = {
 
 	////////////// DROPS //////////////
-	drop(list, value){
-		let elem = $("#drop-"+value)
+	drop(type){
+		if(!config[type].active) return $('#menu-'+type).parent('.dropdown').hide()
+		if(config[type].hide) $('#menu-'+type).parent('.dropdown').hide()
 
-		$.each(list, function(i, item) { 
+		let elem = $("#drop-"+type)
+		
+		$.each(config[type].list, function(i, item) { 
 			let icon = ''
 			
 			if(item.default != undefined){

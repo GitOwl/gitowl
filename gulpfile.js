@@ -99,8 +99,8 @@ gulp.task('temp', function() {
 
 		gulp.start('clean')
 
-		gulp.src(['./src/*', '!./src/data']).pipe(gulp.dest('./temp'))
-		console.log(" - INFO: ./src/* has been copied to ./temp")
+		gulp.src(['./src/app/**/*']).pipe(gulp.dest('./temp'))
+		console.log(" - INFO: ./src/app/**/* has been copied to ./temp")
 
 		gulp.src('./src/data/'+folder+'/**/*').pipe(gulp.dest('./temp'))
 		console.log(" - INFO: ./data/"+folder+"/* has been copied to ./temp")
