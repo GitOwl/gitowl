@@ -217,8 +217,7 @@ body {
   #sidebar ul li span {
     font-weight: 900;
     color: rgba(255, 255, 255, 0.3);
-    font-size: 15px;
-    display: none; }
+    font-size: 15px; }
   #sidebar ul li a {
     display: block;
     padding: .75rem 1.5rem;

@@ -1,0 +1,36 @@
+title: 'GitOwl: Advanced Example'
+logo: <img src="themes/default/img/logo.svg"/>
+theme: default
+
+redirectHome: true
+nav:
+  prev: true
+  next: true
+
+bullet:
+  level1: true
+  level2: true
+
+lang:
+  active: false
+  hide: false
+
+version:
+  active: true
+  hide: false
+
+
+# External libraries
+showdown:
+    noHeaderId: true
+    parseImgDimensions: true
+    simplifiedAutoLink: true
+    excludeTrailingPunctuationFromURLs: true
+    strikethrough: true
+    tables: true
+    tasklists: true
+
+perfectscrollbar:
+    suppressScrollX: true
+    minScrollbarLength: 20
+    maxScrollbarLength: 80

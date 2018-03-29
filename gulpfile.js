@@ -10,9 +10,7 @@ var gulp  = require('gulp'),
 gulp.storage.create('root', 'config.json')
 
 
-gulp.task('default', ['watch'], function () {  
-	// Call 'temp' and 'watch'
-
+gulp.task('default', ['temp','watch'], function () {  
 	console.log("THEME: "+gulp.storage.get('theme'))
 	console.log("DATA: "+gulp.storage.get('data'))
 })
@@ -103,13 +101,13 @@ gulp.task('temp', function() {
 		console.log(" - INFO: ./src/app/**/* has been copied to ./temp")
 
 		gulp.src('./src/data/'+folder+'/**/*').pipe(gulp.dest('./temp'))
-		console.log(" - INFO: ./data/"+folder+"/* has been copied to ./temp")
+		console.log(" - INFO: ./src/data/"+folder+"/* has been copied to ./temp")
 
 		gulp.src('./src/themes/**/*').pipe(gulp.dest('temp/themes'))
-		console.log(" - INFO: ./themes/**/* has been copied to ./temp/themes")
+		console.log(" - INFO: ./src/themes/**/* has been copied to ./temp/themes")
 
 	} catch(e) {
-		console.log(" - ERROR: './data/"+folder+"' doesn't exist!")
+		console.log(" - ERROR: './src/data/"+folder+"' doesn't exist!")
 
 	}
 })
@@ -133,3 +131,10 @@ function store(theme, data){
 	gulp.storage.set('data', data)
 	console.log(" - INFO: config.json file has been created with '"+gulp.storage.get('theme')+"' and '"+gulp.storage.get('data')+"' vars")
 }
+
+
+// TODO:
+//  Task pack: Compress temp folder
+//  Task pack-theme: Compress only a theme
+//  Task pack-data: Compress only the data folder
+//  Task release: Make a gitowl release

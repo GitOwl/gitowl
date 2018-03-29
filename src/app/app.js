@@ -1,5 +1,5 @@
  "use strict"
-var config
+var config, active = {lang:null,version:null}
 
 $(function(){
 
@@ -11,16 +11,14 @@ $(function(){
 		$('.logo').html(config.logo)
 		$('#h-title').html(config.title)
 		
-		create.drop('lang')
-		create.drop('version')
+		setPaths()
 
-	}).fail(function(req, textStatus) {
-		console.log('Error in config.yaml: '+textStatus)
+	}).fail(function(req, status) { showSidebarError('ERROR: config.yaml') 
 	}).always(function() {
 		$('body').fadeIn(1000)
 
 		////////////// LOAD ROUTES //////////////		
-		$.get('./routes.yaml', function(file) {
+		$.get(getRoutes(), function(file) {
 			$.each(jsyaml.load(file), function(i, item) { 
 				$('#list').append(create.menuItem(i, item))
 			})
@@ -32,20 +30,14 @@ $(function(){
 				 $('.active').closest('ul').collapse('show') 
 			} 
 		
-		}).fail(function(req, textStatus) {
-			console.log('Error in menu.yaml: ')
-			$('#error-sidebar').show()
+		}).fail(function(req, status) { showSidebarError('ERROR: routes.yaml')
 		}).always(function() {
-			if(config.bullet.level1) $('.b-level1').show()
-			if(config.bullet.level2) $('.b-level2').show()
-
 			new PerfectScrollbar('#scroll', config.perfectscrollbar);
 			$('#loading-sidebar').hide()
 		})
 	})
 
 	$('#search-by').on('keyup', function() {
-
 		let search = $(this).val()
 
 		$('.sb-close').show()
@@ -113,23 +105,24 @@ var	create = {
 
 	////////////// MENUITEM //////////////
 	menuItem(i, page){
+		let html
+
 		if(page.items == undefined){
-			return `<li><a href="#${page.file}" data-url="${page.file}" data-ftitle="${escape(page.title)}" class="menuitem">
-						<span class="b-level1">${page.id}. </span><text>${page.title}</text>
-					</a></li>`
+			html = `<li><a href="#${page.file}" data-url="${page.file}" data-ftitle="${escape(page.title)}" class="menuitem">`
+			html += config.bullet.level1 ? `<span class="b-level1">${page.id}. </span>` : ''
+			return html + `<text>${page.title}</text></a></li>`
 		}
 
-		let html = `<li>
-					 <a href="#${i+1}/${page.folder}" data-url="${page.folder}/chapter.md" data-ftitle="${escape(page.title)}" data-toggle="collapse" class="menuitem">
-						<span class="b-level1">${page.id}. </span><text>${page.title}</text>
-					 </a>
-						<ul id="${i+1}/${page.folder}" class="list-unstyled collapse">`
+		html = `<li><a href="#${i+1}/${page.folder}" data-url="${page.folder}/chapter.md" data-ftitle="${escape(page.title)}" data-toggle="collapse" class="menuitem">`
+		html += config.bullet.level1 ? `<span class="b-level1">${page.id}. </span>` : ''
+		html += `<text>${page.title}</text>`
+		html += `</a><ul id="${i+1}/${page.folder}" class="list-unstyled collapse">`
 
 		$.each(page.items, function(j, item) { 
 			let path = page.folder +'/'+item.file
-			html += `<li><a href="#${path}" data-url="${path}" data-ftitle="${escape(page.title)}" data-title="${escape(item.title)}" class="menuitem">
-						<span class="b-level2">${page.id}.${(j+1)} </span> <text>${item.title}</text>
-					</a></li>`
+			html += `<li><a href="#${path}" data-url="${path}" data-ftitle="${escape(page.title)}" data-title="${escape(item.title)}" class="menuitem">`
+			html += config.bullet.level2 ? `<span class="b-level2">${page.id}.${(j+1)} </span> ` : ''
+			html +=	`<text>${item.title}</text></a></li>`
 		});
 														
 		return html + '</ul></li>'
@@ -175,7 +168,7 @@ var	create = {
 		if(elem.title !== undefined){
 			html +=	`<i class="fa fa-angle-right bc-separator"></i>
 						<span class="bc-file" itemprop="title">${unescape(elem.title)}</span>`
-		  }
+		}
 
 		return html + '</div></div>'
 	}
@@ -204,15 +197,8 @@ function changePage(elem){
 		}
 	
 		$('#body-content').prepend(create.breadcrumb(elem.data()))
-
-		if(url.endsWith('.md')){	
-			let sd = new showdown.Converter(config.showdown)
-
-			$('#body-inner').html(sd.makeHtml(data))
-		}else{
-			$('#body-inner').html(data)
-
-		}
+		
+		$('#body-inner').html(url.endsWith('.md') ? new showdown.Converter(config.showdown).makeHtml(data) : data)
 		
 	}).fail(function(req, textStatus) {
 		$('#body-inner').html('')
@@ -228,12 +214,8 @@ function changePage(elem){
 	$('#list li ul').not(elem.parent().parent()).collapse('hide')
 	
 
-
 	$.each($('.menuitem'), function(i, menuitem) { 
-		if($(menuitem).hasClass('active')) {
-			create.navs(i)
-			return false;
-		}
+		if($(menuitem).hasClass('active')) return create.navs(i)
 	})
 
 }
@@ -242,32 +224,76 @@ function splitUrl(url){
 	return url.split('/#!/')[0].split('/');
 }
 
+function getRoutes(){
+
+	if(config.lang.active && config.version.active)
+		return './en/v1/routes.yaml'
+
+	return './routes.yaml'
+}
+
+function setPaths(){
+	if(config.lang.active || config.version.active){
+		
+		$.get('./paths.yaml', function(file) {
+			let paths = jsyaml.load(file)
+			
+			if(config.lang.active){
+				$.each(paths, function(i, lang) { 
+					if(lang.default){
+						active.lang = lang
+						return false
+					}
+				})
+			}
+
+			if(config.version.active){
+				let items = active.lang ? active.lang.versions : paths
+
+				$.each(items, function(i, version) { 
+					if(version.default){
+						active.version = version
+						return false
+					}
+				})
+			}
+
+			// if(config.lang.active){
+			// 	$.each(jsyaml.load(file), function(i, lang) { 
+			// 		if(lang.default){
+			// 			active.lang = lang
+
+			// 			if(config.version.active){
+			// 				$.each(lang.versions, function(j, version) { 
+			// 					if(version.default){
+			// 						active.version = version
+			// 						return false
+			// 					}
+			// 				})
+			// 			}
+						
+			// 			return false
+			// 		}
+			// 	})
+			// }
 
 
 
-/// ADENTRO DE READY
-/*
-	toggle sidebar when button clicked
-	$('.sidebar-toggle').on('click', function () {
-		$('.sidebar').toggleClass('toggled');
-	});
 
-	// auto-expand submenu if an item is active
-	var active = $('.sidebar .active');
 
-	if (active.length && active.parent('.collapse').length) {
-		var parent = active.parent('.collapse');
+			console.log(active)
 
-		parent.prev('a').attr('aria-expanded', true);
-		parent.addClass('show');
+		}).fail(function(req, status) { showSidebarError('ERROR: paths.yaml') })
+
+	} else {
+		create.drop('lang')
+		create.drop('version')
 	}
-*/
 
-/*
-	$(window).bind('hashchange', function(){
-		alert(location.hash)
-	})
+}
 
-  	// Trigger the event (useful on page load).
-  	$(window).hashchange();
-*/
+function showSidebarError(msj){
+	$('#error-sidebar').show()
+	$('.dropdown').hide()
+	console.log(msj)
+}
