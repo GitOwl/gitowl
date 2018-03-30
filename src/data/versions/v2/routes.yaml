@@ -1,0 +1,22 @@
+- id: 1
+  title: Basics
+  folder: basic
+  items:
+  - title: What is GitHow?
+    file: what-is-githow.md
+  - title: Requirements
+    file: requirements.md
+  - title: Html5 files
+    file: html-files.html
+    
+- id: 2
+  title: Troubleshootings
+  folder: troubleshooting
+  items:
+  - title: 404 File not found 
+    file: 404-not-found.md
+
+- id: 3
+  title: Finals
+  file: finals.md
+

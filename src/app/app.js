@@ -1,5 +1,6 @@
  "use strict"
-var config, active = {lang:null,version:null}
+var config, 
+	active = {lang:null, version:null, path:'/'}
 
 $(function(){
 
@@ -11,14 +12,17 @@ $(function(){
 		$('.logo').html(config.logo)
 		$('#h-title').html(config.title)
 		
-		setPaths()
+		setPaths(config.paths)
+
+		create.drop('lang')
+		create.drop('version')
 
 	}).fail(function(req, status) { showSidebarError('ERROR: config.yaml') 
 	}).always(function() {
 		$('body').fadeIn(1000)
 
 		////////////// LOAD ROUTES //////////////		
-		$.get(getRoutes(), function(file) {
+		$.get(active.path+'routes.yaml', function(file) {
 			$.each(jsyaml.load(file), function(i, item) { 
 				$('#list').append(create.menuItem(i, item))
 			})
@@ -89,10 +93,16 @@ var	create = {
 		if(config[type].hide) $('#menu-'+type).parent('.dropdown').hide()
 
 		let elem = $("#drop-"+type)
-		
-		$.each(config[type].list, function(i, item) { 
+		let paths
+
+		if(type == 'version'){
+			paths = config.lang.active ? active.lang.versions : config.paths
+		} else {
+			paths = config.paths
+		}
+
+		$.each(paths, function(i, item) { 
 			let icon = ''
-			
 			if(item.default != undefined){
 				icon = '<i class="fa fa-check"></i>'
 				elem.parent().find('text').text(item.title)
@@ -108,19 +118,27 @@ var	create = {
 		let html
 
 		if(page.items == undefined){
-			html = `<li><a href="#${page.file}" data-url="${page.file}" data-ftitle="${escape(page.title)}" class="menuitem">`
+			let href = active.path + removeExt(page.file),
+				url  = active.path + 'pages/' + page.file;
+
+			html = `<li><a href="#${href}" data-url="${url}" data-ftitle="${escape(page.title)}" class="menuitem">`
 			html += config.bullet.level1 ? `<span class="b-level1">${page.id}. </span>` : ''
 			return html + `<text>${page.title}</text></a></li>`
 		}
 
-		html = `<li><a href="#${i+1}/${page.folder}" data-url="${page.folder}/chapter.md" data-ftitle="${escape(page.title)}" data-toggle="collapse" class="menuitem">`
+		let	href2  = active.path + page.folder,
+			folder = active.path + 'pages/' + page.folder;
+
+		html = `<li><a href="#${href2}" data-target="#${i+1}-${page.folder}" data-url="${folder}/chapter.md" data-ftitle="${escape(page.title)}" data-toggle="collapse" class="menuitem">`
 		html += config.bullet.level1 ? `<span class="b-level1">${page.id}. </span>` : ''
 		html += `<text>${page.title}</text>`
-		html += `</a><ul id="${i+1}/${page.folder}" class="list-unstyled collapse">`
+		html += `</a><ul id="${i+1}-${page.folder}" class="list-unstyled collapse">`
 
 		$.each(page.items, function(j, item) { 
-			let path = page.folder +'/'+item.file
-			html += `<li><a href="#${path}" data-url="${path}" data-ftitle="${escape(page.title)}" data-title="${escape(item.title)}" class="menuitem">`
+			let path  = active.path + 'pages/' + page.folder + '/' + item.file,
+				href3 = active.path + page.folder + '/' + removeExt(item.file);
+
+			html += `<li><a href="#${href3}" data-url="${path}" data-ftitle="${escape(page.title)}" data-title="${escape(item.title)}" class="menuitem">`
 			html += config.bullet.level2 ? `<span class="b-level2">${page.id}.${(j+1)} </span> ` : ''
 			html +=	`<text>${item.title}</text></a></li>`
 		});
@@ -183,7 +201,7 @@ function changePage(elem){
     
 	$('#loading-body').show()
 
-	$.get('pages/'+url, function(data) {
+	$.get(url, function(data) {
 		$('#error-body').hide()
 		
 		if(url.endsWith('/chapter.md')){				
@@ -221,79 +239,42 @@ function changePage(elem){
 }
 
 function splitUrl(url){
-	return url.split('/#!/')[0].split('/');
+	return url.split('/#!/')[0].split('/')
 }
 
-function getRoutes(){
-
-	if(config.lang.active && config.version.active)
-		return './en/v1/routes.yaml'
-
-	return './routes.yaml'
+function removeExt(file){
+	return file.replace(new RegExp(/(\.md$|\.html?$)/i), '')
 }
 
-function setPaths(){
+function setPaths(paths){
 	if(config.lang.active || config.version.active){
-		
-		$.get('./paths.yaml', function(file) {
-			let paths = jsyaml.load(file)
-			
-			if(config.lang.active){
-				$.each(paths, function(i, lang) { 
-					if(lang.default){
-						active.lang = lang
-						return false
-					}
-				})
-			}
+		if(config.lang.active){
+			$.each(paths, function(i, lang) { 
+				if(lang.default){
+					active.lang = lang
+					active.path += lang.path+'/'
+					return false
+				}
+			})
+		}
 
-			if(config.version.active){
-				let items = active.lang ? active.lang.versions : paths
+		if(config.version.active){
+			let items = active.lang ? active.lang.versions : paths
 
-				$.each(items, function(i, version) { 
-					if(version.default){
-						active.version = version
-						return false
-					}
-				})
-			}
-
-			// if(config.lang.active){
-			// 	$.each(jsyaml.load(file), function(i, lang) { 
-			// 		if(lang.default){
-			// 			active.lang = lang
-
-			// 			if(config.version.active){
-			// 				$.each(lang.versions, function(j, version) { 
-			// 					if(version.default){
-			// 						active.version = version
-			// 						return false
-			// 					}
-			// 				})
-			// 			}
-						
-			// 			return false
-			// 		}
-			// 	})
-			// }
-
-
-
-
-
-			console.log(active)
-
-		}).fail(function(req, status) { showSidebarError('ERROR: paths.yaml') })
-
-	} else {
-		create.drop('lang')
-		create.drop('version')
-	}
+			$.each(items, function(i, version) { 
+				if(version.default){
+					active.version = version
+					active.path += version.path+'/'
+					return false
+				}
+			})
+		}		
+	} 
 
 }
 
 function showSidebarError(msj){
-	$('#error-sidebar').show()
+	$('#error-sidebar').show().css('display', 'block')
 	$('.dropdown').hide()
 	console.log(msj)
 }

@@ -1,12 +1,11 @@
 #######################
 ###                 ###
-###  GitOwl config  ###
+###  GitOwl Config  ###
 ###                 ###
 #######################
 
-
-#### Basic ####
-title: 'GitOwl: Advanced Example'
+#### BASIC ####
+title: 'GitOwl: Versions Example'
 logo: <img src="themes/default/img/logo.svg"/>
 theme: default
 
@@ -20,38 +19,24 @@ bullet:
   level2: true
 
 lang:
-  active: true
+  active: false
   hide: false
 
 version:
   active: true
   hide: false
 
-#### Folder Structure ####
+#### FOLDER STRUCTURE ####
 paths:
-  - title: English
-    path: en
+  - title: v1.0
+    path: v1
     default: true
-    versions:
-    - title: v1.0
-      path: v1
-      default: true
 
-    - title: v2.0
-      path: v2
-
-  - title: Español
-    path: es
-    versions:
-    - title: v1.0
-      path: v1
-
-    - title: v2.0
-      path: v2
-      default: true
+  - title: v2.0
+    path: v2
 
 
-#### External libraries ####
+#### EXTERNAL LIBRARIES ####
 showdown:
     noHeaderId: true
     parseImgDimensions: true
