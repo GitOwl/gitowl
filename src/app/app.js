@@ -12,7 +12,7 @@ $(function(){
 		$('.logo').html(config.logo)
 		$('#h-title').html(config.title)
 		
-		setPaths(config.paths)
+		change.paths(config.paths)
 
 		create.drop('lang')
 		create.drop('version')
@@ -30,7 +30,7 @@ $(function(){
 			if(location.hash.length > 0){
 				let elem = $("#list li a[href='"+location.hash+"']")
 				
-				changePage(elem)
+				change.page(elem)
 				 $('.active').closest('ul').collapse('show') 
 			} 
 		
@@ -69,14 +69,23 @@ $(function(){
 
 
 	$('#list').on('click', 'li a', function() {
-		changePage($(this))
+		change.page($(this))
 		$('#sidebar').removeClass('toggled')
 	})
+
+	$('.dropdown').on('click', 'li a', function() {
+		//console.log($(this).data())
+		change.active($(this))
+
+		//change.page($(this))
+		$('#sidebar').removeClass('toggled')
+	})
+
 
 	$('#navigation').on('click', 'a.nav-prev, a.nav-next', function() {
 		let elem = $($("a[href='"+$(this).attr('href')+"']")).show()
 		elem.parent().parent().collapse('show')
-		changePage(elem)
+		change.page(elem)
 
 	}).on('click','a.nav-menu', function () {
 		$('#sidebar').addClass('toggled')
@@ -104,11 +113,11 @@ var	create = {
 		$.each(paths, function(i, item) { 
 			let icon = ''
 			if(item.default != undefined){
-				icon = '<i class="fa fa-check"></i>'
+				icon = '<i id="check-'+type+'" class="fa fa-check"></i>'
 				elem.parent().find('text').text(item.title)
 			} 
 				
-			elem.append('<li><a href="#">'+item.title+' '+icon+'</a></li>')
+			elem.append('<li><a href="#" data-path="'+item.path+'" data-type="'+type+'">'+item.title+' '+icon+'</a></li>')
 		})
 	},
 
@@ -194,49 +203,158 @@ var	create = {
 }
 
 
-function changePage(elem){
-	// TODO: Return if la pagina a cambiar es la misma que se clickea
 
-	let url = elem.data('url')
-    
-	$('#loading-body').show()
 
-	$.get(url, function(data) {
-		$('#error-body').hide()
-		
-		if(url.endsWith('/chapter.md')){				
-			if(!$('#chapter').length > 0){
-				$('#body-inner').wrap('<div id="chapter"></div>')					
-			}
-			location.hash = elem.prop('hash')
+var	change = {
+
+	page(elem){
+		// TODO: Return if la pagina a cambiar es la misma que se clickea
+		let url = elem.data('url') 
+	    
+		$('#loading-body').show()
+
+		$.get(url, function(data) {
+			$('#error-body').hide()
 			
+			if(url.endsWith('/chapter.md')){				
+				if(!$('#chapter').length > 0){
+					$('#body-inner').wrap('<div id="chapter"></div>')					
+				}
+				location.hash = elem.prop('hash')
+				
+			} else {
+				$('#chapter').contents().unwrap()
+			}
+		
+			$('#body-content').prepend(create.breadcrumb(elem.data()))
+			
+			$('#body-inner').html(url.endsWith('.md') ? new showdown.Converter(config.showdown).makeHtml(data) : data)
+			
+		}).fail(function(req, textStatus) {
+			$('#body-inner').html('')
+			$('#error-body').show().find('p').text('Error '+req.status)
+		}).always(function() {
+			$('#loading-body').hide()
+		})
+
+
+		$('#list li a').removeClass('active')	
+		elem.addClass('active').blur()
+
+		$('#list li ul').not(elem.parent().parent()).collapse('hide')
+		
+
+		$.each($('.menuitem'), function(i, menuitem) { 
+			if($(menuitem).hasClass('active')) return create.navs(i)
+		})
+
+	},
+
+	active(elem){
+		// 1. Reload Menuitems
+		// 2. Click first: #list li a
+		// 	  Reload Page
+
+
+		let type = elem.data('type')
+
+		$('#check-'+type).remove()
+
+		elem.append('<i id="check-'+type+'" class="fa fa-check"></i>')
+
+		let paths = [{ path: null, default: true }]
+		console.log(active)
+
+		if(config.lang.active && config.version.active){
+			paths[0].versions = paths
+
+			if(type == 'lang'){
+				//paths[0].path = elem.data('path')
+				//paths[0].versions.path = active.version.path
+
+				active.path = '/'+elem.data('path')+'/'+active.version.path+'/'
+			}
+
+			if(type == 'version'){
+				//paths[0].path = active.lang.path
+				//paths[0].versions.path = elem.data('path')
+
+				active.path = '/'+active.lang.path+'/'+elem.data('path')+'/'
+			}
+
 		} else {
-			$('#chapter').contents().unwrap()
+			if(config.lang.active || config.version.active){
+			//	paths[0].path = elem.data('path')
+				active.path = '/'+elem.data('path')+'/'
+			}
+
 		}
-	
-		$('#body-content').prepend(create.breadcrumb(elem.data()))
+
+		console.log(active)
+		//change.paths(paths)
+		//console.log(active)
+	},
+
+
+	paths(paths){
+		if(config.lang.active || config.version.active){
+			if(config.lang.active){
+				$.each(paths, function(i, lang) { 
+					if(lang.default){
+						active.lang = lang
+						active.path += lang.path + '/'
+						return false
+					}
+				})
+			}
+
+			if(config.version.active){
+				let items = active.lang ? active.lang.versions : paths
+
+				$.each(items, function(i, version) { 
+					if(version.default){
+						active.version = version
+						active.path += version.path + '/'
+						return false
+					}
+				})
+			}		
+		} 
+
+	},
+
+	menuitems(){
+		$('#loading-sidebar').show()
+
+		// 1. borrar menuitems
+		// 2. Poner nuevo
+		// Fijarse de no cagar el scroll
+
+
+		$.get(active.path+'routes.yaml', function(file) {
+			$.each(jsyaml.load(file), function(i, item) { 
+				$('#list').append(create.menuItem(i, item))
+			})
+
+			if(location.hash.length > 0){
+				let elem = $("#list li a[href='"+location.hash+"']")
+				
+				change.page(elem)
+				 $('.active').closest('ul').collapse('show') 
+			} 
 		
-		$('#body-inner').html(url.endsWith('.md') ? new showdown.Converter(config.showdown).makeHtml(data) : data)
+		}).fail(function(req, status) { showSidebarError('ERROR: routes.yaml')
+		}).always(function() {
+			// new PerfectScrollbar('#scroll', config.perfectscrollbar);
+			$('#loading-sidebar').hide()
+		})
 		
-	}).fail(function(req, textStatus) {
-		$('#body-inner').html('')
-		$('#error-body').show().find('p').text('Error '+req.status)
-	}).always(function() {
-		$('#loading-body').hide()
-	})
-
-
-	$('#list li a').removeClass('active')	
-	elem.addClass('active').blur()
-
-	$('#list li ul').not(elem.parent().parent()).collapse('hide')
-	
-
-	$.each($('.menuitem'), function(i, menuitem) { 
-		if($(menuitem).hasClass('active')) return create.navs(i)
-	})
+	}
 
 }
+
+
+
 
 function splitUrl(url){
 	return url.split('/#!/')[0].split('/')
@@ -246,32 +364,6 @@ function removeExt(file){
 	return file.replace(new RegExp(/(\.md$|\.html?$)/i), '')
 }
 
-function setPaths(paths){
-	if(config.lang.active || config.version.active){
-		if(config.lang.active){
-			$.each(paths, function(i, lang) { 
-				if(lang.default){
-					active.lang = lang
-					active.path += lang.path+'/'
-					return false
-				}
-			})
-		}
-
-		if(config.version.active){
-			let items = active.lang ? active.lang.versions : paths
-
-			$.each(items, function(i, version) { 
-				if(version.default){
-					active.version = version
-					active.path += version.path+'/'
-					return false
-				}
-			})
-		}		
-	} 
-
-}
 
 function showSidebarError(msj){
 	$('#error-sidebar').show().css('display', 'block')

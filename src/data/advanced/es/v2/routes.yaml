@@ -1,12 +1,12 @@
 - id: 1
-  title: Basics
+  title: Basico
   folder: basic
   items:
-  - title: What is GitHow?
+  - title: ¿Que es GitHow?
     file: what-is-githow.md
-  - title: Requirements
+  - title: Requerimientos
     file: requirements.md
-  - title: Html5 files
+  - title: Archivos Html5
     file: html-files.html
     
 - id: 2

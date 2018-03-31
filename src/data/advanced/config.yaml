@@ -4,13 +4,16 @@
 ###                 ###
 #######################
 
-
 #### Basic ####
 title: 'GitOwl: Advanced Example'
 logo: <img src="themes/default/img/logo.svg"/>
+
 theme: default
 
-redirectHome: true
+redirect:
+  home: true
+  chapter: false
+
 nav:
   prev: true
   next: true

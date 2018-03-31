@@ -1,8 +1,19 @@
-title: GitOwl Framework
+#######################
+###                 ###
+###  GitOwl config  ###
+###                 ###
+#######################
+
+#### Basic ####
+title: 'GitOwl Framework'
 logo: <img src="themes/default/img/logo.svg"/>
+
 theme: default
 
-redirectHome: true
+redirect:
+  home: true
+  chapter: false
+
 nav:
   prev: true
   next: true
@@ -14,26 +25,36 @@ bullet:
 lang:
   active: true
   hide: false
-  list:
-  - title: Español
-    path: es
 
-  - title: English
-    default: true
-    path: en
-
-versions:
+version:
   active: true
   hide: false
-  list:
-  - title: v1.0
+
+#### Folder Structure ####
+paths:
+  - title: English
+    path: en
     default: true
-    file: routes-1
+    versions:
+    - title: v1.0
+      path: v1
+      default: true
 
-  - title: v2.0
-    file: routes-2
+    - title: v2.0
+      path: v2
 
-# External libraries
+  - title: Español
+    path: es
+    versions:
+    - title: v1.0
+      path: v1
+
+    - title: v2.0
+      path: v2
+      default: true
+
+
+#### External libraries ####
 showdown:
     noHeaderId: true
     parseImgDimensions: true
@@ -47,3 +68,5 @@ perfectscrollbar:
     suppressScrollX: true
     minScrollbarLength: 20
     maxScrollbarLength: 80
+
+

@@ -1,8 +1,19 @@
+#######################
+###                 ###
+###  GitOwl Config  ###
+###                 ###
+#######################
+
+#### BASIC ####
 title: 'GitOwl: Basic Example'
 logo: <img src="themes/default/img/logo.svg"/>
+
 theme: default
 
-redirectHome: true
+redirect:
+  home: true
+  chapter: false
+
 nav:
   prev: true
   next: true
@@ -14,20 +25,13 @@ bullet:
 lang:
   active: false
   hide: false
-  list:
-  - title: English
-    default: true
-    path: en
 
 version:
   active: false
   hide: false
-  list:
-  - title: v1.0
-    default: true
-    file: routes-1
 
-# External libraries
+
+#### EXTERNAL LIBRARIES ####
 showdown:
     noHeaderId: true
     parseImgDimensions: true
