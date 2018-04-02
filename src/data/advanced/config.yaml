@@ -20,6 +20,7 @@ pages:
 nav:
   prev: true
   next: true
+  keypress: true
   
 breadcrumb:
   active: true
