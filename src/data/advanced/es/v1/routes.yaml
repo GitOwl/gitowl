@@ -1,0 +1,22 @@
+- id: 1
+  title: Basico v1
+  folder: basic
+  items:
+  - title: ¿Que es GitOwl v1?
+    file: what-is-githow.md
+  - title: Requirementos
+    file: requirements.md
+  - title: Archvios Html5
+    file: html-files.html
+    
+- id: 2
+  title: Troubleshootings
+  folder: troubleshooting
+  items:
+  - title: 404 File not found 
+    file: 404-not-found.md
+
+- id: 3
+  title: Finals
+  file: finals.md
+

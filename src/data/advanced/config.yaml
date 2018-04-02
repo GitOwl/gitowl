@@ -40,9 +40,6 @@ paths:
       path: v1
       default: true
 
-    - title: v2.0
-      path: v2
-
   - title: Español
     path: es
     versions:

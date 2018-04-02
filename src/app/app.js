@@ -74,10 +74,9 @@ $(function(){
 	})
 
 	$('.dropdown').on('click', 'li a', function() {
-		//console.log($(this).data())
-		change.active($(this))
-
-		//change.page($(this))
+		if(!$(this).find('i').length){
+			change.active($(this))
+		}
 		$('#sidebar').removeClass('toggled')
 	})
 
@@ -217,7 +216,7 @@ var	change = {
 			$('#error-body').hide()
 			
 			if(url.endsWith('/chapter.md')){				
-				if(!$('#chapter').length > 0){
+				if(!$('#chapter').length){
 					$('#body-inner').wrap('<div id="chapter"></div>')					
 				}
 				location.hash = elem.prop('hash')
@@ -251,85 +250,84 @@ var	change = {
 	},
 
 	active(elem){
-		// 1. Reload Menuitems
-		// 2. Click first: #list li a
-		// 	  Reload Page
-
-
-		let type = elem.data('type')
+		let type = elem.data('type'),
+			path = elem.data('path'),
+			text = elem.text(),
+			paths;
 
 		$('#check-'+type).remove()
+		$('#menu-'+type+' text').text(text)
 
 		elem.append('<i id="check-'+type+'" class="fa fa-check"></i>')
 
-		let paths = [{ path: null, default: true }]
-		console.log(active)
-
 		if(config.lang.active && config.version.active){
-			paths[0].versions = paths
-
 			if(type == 'lang'){
-				//paths[0].path = elem.data('path')
-				//paths[0].versions.path = active.version.path
-
-				active.path = '/'+elem.data('path')+'/'+active.version.path+'/'
+				paths = [{
+					path: path,
+					title: text,
+					default: true,
+					versions: [{
+						path: active.version.path,
+						title: active.version.title,
+						default: true
+					}]
+				}]
 			}
 
 			if(type == 'version'){
-				//paths[0].path = active.lang.path
-				//paths[0].versions.path = elem.data('path')
-
-				active.path = '/'+active.lang.path+'/'+elem.data('path')+'/'
+				paths = [{
+					path: active.lang.path,
+					title: active.lang.title,
+					default: true,
+					versions: [{ path: path, title: text, default: true	}]
+				}]
 			}
 
 		} else {
 			if(config.lang.active || config.version.active){
-			//	paths[0].path = elem.data('path')
-				active.path = '/'+elem.data('path')+'/'
+				paths = [{
+					path: path,
+					title: text,
+					default: true
+				}]
 			}
 
 		}
 
-		console.log(active)
-		//change.paths(paths)
-		//console.log(active)
+		active.path = '/'
+		change.paths(paths)
+		change.menuitems()
+		//change.page()
 	},
 
 
 	paths(paths){
-		if(config.lang.active || config.version.active){
-			if(config.lang.active){
-				$.each(paths, function(i, lang) { 
-					if(lang.default){
-						active.lang = lang
-						active.path += lang.path + '/'
-						return false
-					}
-				})
-			}
+		if(config.lang.active){
+			$.each(paths, function(i, lang) { 
+				if(lang.default){
+					active.lang = lang
+					active.path += lang.path + '/'
+					return false
+				}
+			})
+		}
 
-			if(config.version.active){
-				let items = active.lang ? active.lang.versions : paths
+		if(config.version.active){
+			let items = active.lang ? active.lang.versions : paths
 
-				$.each(items, function(i, version) { 
-					if(version.default){
-						active.version = version
-						active.path += version.path + '/'
-						return false
-					}
-				})
-			}		
-		} 
-
+			$.each(items, function(i, version) { 
+				if(version.default){
+					active.version = version
+					active.path += version.path + '/'
+					return false
+				}
+			})
+		}		
 	},
 
 	menuitems(){
+		$('#list').html('')
 		$('#loading-sidebar').show()
-
-		// 1. borrar menuitems
-		// 2. Poner nuevo
-		// Fijarse de no cagar el scroll
-
 
 		$.get(active.path+'routes.yaml', function(file) {
 			$.each(jsyaml.load(file), function(i, item) { 
@@ -345,7 +343,6 @@ var	change = {
 		
 		}).fail(function(req, status) { showSidebarError('ERROR: routes.yaml')
 		}).always(function() {
-			// new PerfectScrollbar('#scroll', config.perfectscrollbar);
 			$('#loading-sidebar').hide()
 		})
 		
@@ -367,6 +364,6 @@ function removeExt(file){
 
 function showSidebarError(msj){
 	$('#error-sidebar').show().css('display', 'block')
-	$('.dropdown').hide()
+	//$('.dropdown').hide()
 	console.log(msj)
 }
