@@ -8,15 +8,6 @@
 	z-index: 10;
 	transition: all 0.3s ease;
 	
-	//height: 100%;
-	//overflow-x: hidden !important;
-	
-	//	font-weight: 400;
-	//	font-size: 15px;
-	// min-width: 300px;
-	// max-width: 300px;
-	// min-height: 100vh;
-
 	.menus{
 		display: flex;
 		align-items: center;
@@ -49,6 +40,13 @@
 			&:focus{
 				background-color: $dropdown-color-bg;			
 				box-shadow: none;		
+			}
+		}
+		
+		&.show {
+			background-color: $dropdown-color-bg;
+			a{
+				color: $light;
 			}
 		}
 
@@ -271,6 +269,7 @@
 		padding: 2px;
 
 		p {
+		cursor: pointer;
 			margin: 0;
 			a{
 				color: $light;

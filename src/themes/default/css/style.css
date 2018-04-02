@@ -71,17 +71,6 @@ body {
       text-align: center;
       font-size: 1.2rem; }
 
-#loading-body {
-  display: none;
-  position: fixed;
-  color: rgba(0, 0, 0, 0.8);
-  top: 25%;
-  right: 41%;
-  background: #FFF;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: 70px;
-  padding: 20px; }
-
 #error-body {
   display: none;
   position: fixed;
@@ -183,6 +172,10 @@ body {
       #sidebar .dropdown button:focus {
         background-color: #2f343b;
         box-shadow: none; }
+    #sidebar .dropdown.show {
+      background-color: #2f343b; }
+      #sidebar .dropdown.show a {
+        color: #FFF; }
     #sidebar .dropdown .dropdown-menu {
       margin: 0;
       border-radius: 0 0 0.3rem 0.3rem;
@@ -313,6 +306,7 @@ body {
     width: 100%;
     padding: 2px; }
     #sidebar #footer p {
+      cursor: pointer;
       margin: 0; }
       #sidebar #footer p a {
         color: #FFF;

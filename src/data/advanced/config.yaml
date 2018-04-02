@@ -1,22 +1,28 @@
 #######################
 ###                 ###
-###  GitOwl config  ###
+###   GitOwl v1.0   ###
 ###                 ###
 #######################
 
 #### Basic ####
-title: 'GitOwl: Advanced Example'
-logo: <img src="themes/default/img/logo.svg"/>
-
 theme: default
 
-redirect:
-  home: true
-  chapter: false
+content:
+  title: 'GitOwl: Advanced Example'
+  logo: '<img src="themes/default/img/logo.svg"/>'
+  search: 'Search...'
+
+pages:
+  folder: pages
+  home: index.md
+  chapter: chapter.md
 
 nav:
   prev: true
   next: true
+  
+breadcrumb:
+  active: true
 
 bullet:
   level1: true
@@ -66,4 +72,5 @@ perfectscrollbar:
     minScrollbarLength: 20
     maxScrollbarLength: 80
 
-
+nprogress:
+  parent: '#body-content' 

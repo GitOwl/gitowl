@@ -68,6 +68,7 @@ This software uses code from several open source packages.
 - [Bootstrap](https://getbootstrap.com/)
 - [Js-yaml](https://github.com/nodeca/js-yaml)
 - [Perfect-scrollbar](https://github.com/utatti/perfect-scrollbar)
+- [NProgress](https://github.com/rstacruz/nprogress)
 - [Highlight.js](https://highlightjs.org/)
 
 > GitOwl is highly inspired by [grav-learn](https://github.com/getgrav/grav-learn) but doesn't use its code.

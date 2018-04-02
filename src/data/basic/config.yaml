@@ -5,14 +5,17 @@
 #######################
 
 #### BASIC ####
-title: 'GitOwl: Basic Example'
-logo: <img src="themes/default/img/logo.svg"/>
-
 theme: default
 
-redirect:
-  home: true
-  chapter: false
+content:
+  title: 'GitOwl: Basic Example'
+  logo: '<img src="themes/default/img/logo.svg"/>'
+  search: 'Search...'
+
+pages:
+  folder: pages
+  home: index.md
+  chapter: chapter.md
 
 nav:
   prev: true
@@ -45,3 +48,6 @@ perfectscrollbar:
     suppressScrollX: true
     minScrollbarLength: 20
     maxScrollbarLength: 80
+
+progress:
+  parent: '#body-content' 

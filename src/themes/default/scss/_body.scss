@@ -110,18 +110,6 @@ body {
 
 }
 
-#loading-body{
-	display: none;
-	position: fixed;
-	color: rgba($dark, 0.8);
-	top: 25%;
-	right: 41%;
-	background: $light;
-	border: 1px solid rgba($dark, 0.05);
-	border-radius: 70px;
-	padding: 20px;
-}
-
 #error-body{
 	display: none;
 	position: fixed;

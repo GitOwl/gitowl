@@ -1,8 +1,8 @@
 - id: 1
-  title: Basics
+  title: Basicos
   folder: basic
   items:
-  - title: What is GitHow?
+  - title: ¡Que es Gitowl?
     file: what-is-githow.md
   - title: Requirements
     file: requirements.md

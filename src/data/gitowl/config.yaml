@@ -5,14 +5,17 @@
 #######################
 
 #### Basic ####
-title: 'GitOwl Framework'
-logo: <img src="themes/default/img/logo.svg"/>
-
 theme: default
 
-redirect:
-  home: true
-  chapter: false
+content:
+  title: 'GitOwl Framework'
+  logo: '<img src="themes/default/img/logo.svg"/>'
+  search: 'Search...'
+
+pages:
+  folder: pages
+  home: index.md
+  chapter: chapter.md
 
 nav:
   prev: true
@@ -69,4 +72,5 @@ perfectscrollbar:
     minScrollbarLength: 20
     maxScrollbarLength: 80
 
-
+progress:
+  parent: '#body-content'

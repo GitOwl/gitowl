@@ -7,25 +7,33 @@ $(function(){
 	////////////// LOAD CONFIG //////////////
 	$.get('./config.yaml', function(file) {
 		config = jsyaml.load(file)
-
 		$('head').append('<link rel="stylesheet" href="themes/'+config.theme+'/css/style.css"/>')
-		$('.logo').html(config.logo)
-		$('#h-title').html(config.title)
+		
+		NProgress.configure(config.nprogress)
+		NProgress.start()
+		
+		$('.logo').html(config.content.logo)
+		$('#h-title').html(config.content.title)
+		$('.searchbox input').attr("placeholder", config.content.search);
 		
 		change.paths(config.paths)
 
 		create.drop('lang')
 		create.drop('version')
+		NProgress.set(0.4);
 
-	}).fail(function(req, status) { showSidebarError('ERROR: config.yaml') 
+	}).fail(function(req, status) { utils.show.sidebarError('ERROR: config.yaml') 
 	}).always(function() {
 		$('body').fadeIn(1000)
 
 		////////////// LOAD ROUTES //////////////		
 		$.get(active.path+'routes.yaml', function(file) {
+			NProgress.set(0.8);
 			$.each(jsyaml.load(file), function(i, item) { 
 				$('#list').append(create.menuItem(i, item))
 			})
+			
+			change.home()
 
 			if(location.hash.length > 0){
 				let elem = $("#list li a[href='"+location.hash+"']")
@@ -34,8 +42,9 @@ $(function(){
 				 $('.active').closest('ul').collapse('show') 
 			} 
 		
-		}).fail(function(req, status) { showSidebarError('ERROR: routes.yaml')
+		}).fail(function(req, status) { utils.show.sidebarError('ERROR: routes.yaml')
 		}).always(function() {
+			NProgress.done()
 			new PerfectScrollbar('#scroll', config.perfectscrollbar);
 			$('#loading-sidebar').hide()
 		})
@@ -69,7 +78,9 @@ $(function(){
 
 
 	$('#list').on('click', 'li a', function() {
-		change.page($(this))
+		if(!$(this).hasClass('active')){
+			change.page($(this))
+		}
 		$('#sidebar').removeClass('toggled')
 	})
 
@@ -80,7 +91,6 @@ $(function(){
 		$('#sidebar').removeClass('toggled')
 	})
 
-
 	$('#navigation').on('click', 'a.nav-prev, a.nav-next', function() {
 		let elem = $($("a[href='"+$(this).attr('href')+"']")).show()
 		elem.parent().parent().collapse('show')
@@ -88,6 +98,10 @@ $(function(){
 
 	}).on('click','a.nav-menu', function () {
 		$('#sidebar').addClass('toggled')
+	})
+
+	$('#footer').on('click', function() {
+		$(this).find('a')[0].click()
 	})
 
 });
@@ -126,8 +140,8 @@ var	create = {
 		let html
 
 		if(page.items == undefined){
-			let href = active.path + removeExt(page.file),
-				url  = active.path + 'pages/' + page.file;
+			let href = active.path + utils.removeExt(page.file),
+				url  = active.path + config.pages.folder + '/' + page.file;
 
 			html = `<li><a href="#${href}" data-url="${url}" data-ftitle="${escape(page.title)}" class="menuitem">`
 			html += config.bullet.level1 ? `<span class="b-level1">${page.id}. </span>` : ''
@@ -135,16 +149,16 @@ var	create = {
 		}
 
 		let	href2  = active.path + page.folder,
-			folder = active.path + 'pages/' + page.folder;
+			folder = active.path + config.pages.folder + '/' + page.folder;
 
-		html = `<li><a href="#${href2}" data-target="#${i+1}-${page.folder}" data-url="${folder}/chapter.md" data-ftitle="${escape(page.title)}" data-toggle="collapse" class="menuitem">`
+		html = `<li><a href="#${href2}" data-target="#${i+1}-${page.folder}" data-url="${folder}/${config.pages.chapter}" data-ftitle="${escape(page.title)}" data-toggle="collapse" class="menuitem">`
 		html += config.bullet.level1 ? `<span class="b-level1">${page.id}. </span>` : ''
 		html += `<text>${page.title}</text>`
 		html += `</a><ul id="${i+1}-${page.folder}" class="list-unstyled collapse">`
 
 		$.each(page.items, function(j, item) { 
-			let path  = active.path + 'pages/' + page.folder + '/' + item.file,
-				href3 = active.path + page.folder + '/' + removeExt(item.file);
+			let path  = active.path + config.pages.folder + '/' + page.folder + '/' + item.file,
+				href3 = active.path + page.folder + '/' + utils.removeExt(item.file);
 
 			html += `<li><a href="#${href3}" data-url="${path}" data-ftitle="${escape(page.title)}" data-title="${escape(item.title)}" class="menuitem">`
 			html += config.bullet.level2 ? `<span class="b-level2">${page.id}.${(j+1)} </span> ` : ''
@@ -180,7 +194,7 @@ var	create = {
 
 	////////////// BREADCRUMB //////////////
 	breadcrumb(elem){
-		let folder = splitUrl(elem.url)[0]
+		let folder = utils.splitUrl(elem.url)[0]
 		
 		$('#top-bar').remove()
 
@@ -202,22 +216,40 @@ var	create = {
 }
 
 
-
-
 var	change = {
 
-	page(elem){
-		// TODO: Return if la pagina a cambiar es la misma que se clickea
-		let url = elem.data('url') 
-	    
-		$('#loading-body').show()
+	home(){
+		if(!config.pages.home) return $('.menuitem').first().click()
+
+		let url = active.path + config.pages.folder + '/' + config.pages.home 
+		$('#body-inner').html('')
 
 		$.get(url, function(data) {
 			$('#error-body').hide()
+				
+			if(!$('#chapter').length){
+				$('#body-inner').wrap('<div id="chapter"></div>')
+			}
 			
-			if(url.endsWith('/chapter.md')){				
+			$('#body-inner').html(url.endsWith('.md') ? new showdown.Converter(config.showdown).makeHtml(data) : data)
+			
+		}).fail(function(req, textStatus) {	utils.show.bodyError(req) })
+
+		create.navs(-1)
+
+	},
+
+	page(elem){
+		NProgress.start()
+		let url = elem.data('url') 
+	    
+		$.get(url, function(data) {
+			NProgress.set(0.4)
+			$('#error-body').hide()
+			
+			if(url.endsWith('/'+config.pages.chapter)){				
 				if(!$('#chapter').length){
-					$('#body-inner').wrap('<div id="chapter"></div>')					
+					$('#body-inner').wrap('<div id="chapter"></div>')
 				}
 				location.hash = elem.prop('hash')
 				
@@ -229,12 +261,8 @@ var	change = {
 			
 			$('#body-inner').html(url.endsWith('.md') ? new showdown.Converter(config.showdown).makeHtml(data) : data)
 			
-		}).fail(function(req, textStatus) {
-			$('#body-inner').html('')
-			$('#error-body').show().find('p').text('Error '+req.status)
-		}).always(function() {
-			$('#loading-body').hide()
-		})
+		}).fail(function(req, textStatus) { utils.show.bodyError(req) 
+		}).always(function() { NProgress.done() })
 
 
 		$('#list li a').removeClass('active')	
@@ -297,7 +325,7 @@ var	change = {
 		active.path = '/'
 		change.paths(paths)
 		change.menuitems()
-		//change.page()
+		change.home()
 	},
 
 
@@ -341,7 +369,7 @@ var	change = {
 				 $('.active').closest('ul').collapse('show') 
 			} 
 		
-		}).fail(function(req, status) { showSidebarError('ERROR: routes.yaml')
+		}).fail(function(req, status) { utils.show.sidebarError('ERROR: routes.yaml')
 		}).always(function() {
 			$('#loading-sidebar').hide()
 		})
@@ -350,20 +378,32 @@ var	change = {
 
 }
 
+var utils = {
 
+	splitUrl(url){
+		return url.split('/#!/')[0].split('/')
+	},
 
+	removeExt(file){
+		return file.replace(new RegExp(/(\.md$|\.html?$)/i), '')
+	},
 
-function splitUrl(url){
-	return url.split('/#!/')[0].split('/')
+	show: {
+		sidebarError(msj){
+			$('#error-sidebar').show().css('display', 'block')
+			//$('.dropdown').hide()
+			console.log(msj)
+			NProgress.done()
+		},
+
+		bodyError(msj){
+			$('#body-inner').html('')
+			// $('#error-body').show().find('p').text('Error '+msj.status)
+			$('#error-body').show()
+			$('#error-body p').text('Error '+msj.status)
+			console.log(msj)
+			NProgress.done()
+		}
+	}
 }
 
-function removeExt(file){
-	return file.replace(new RegExp(/(\.md$|\.html?$)/i), '')
-}
-
-
-function showSidebarError(msj){
-	$('#error-sidebar').show().css('display', 'block')
-	//$('.dropdown').hide()
-	console.log(msj)
-}
