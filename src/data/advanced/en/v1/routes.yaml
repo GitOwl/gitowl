@@ -8,12 +8,14 @@
     file: requirements.md
   - title: Html5 files
     file: html-files.html
+  - title: Markdown syntax
+    file: markdown.md
     
 - id: 2
   title: Troubleshootings
   folder: troubleshooting
   items:
-  - title: 404 File not found 
+  - title: 404 File not found
     file: 404-not-found.md
 
 - id: 3

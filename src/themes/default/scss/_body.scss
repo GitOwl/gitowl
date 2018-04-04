@@ -21,6 +21,14 @@ body {
 		margin: .85rem 0 1.7rem 0;
 	}
 
+	h1 {
+		text-align: center;
+		text-transform: uppercase;
+		color: #222;
+		font-weight: 200;
+		font-size: 3.25rem;
+	}
+
 	pre {
 		padding: 1rem;
 		margin: 2rem 0;
@@ -52,7 +60,52 @@ body {
 		color: #212529;
 		background: $code-color-bg;
 		//border: 1px solid #fbf0cb;
-		padding: 0 5px;
+		//padding: 0 5px;
+	}
+
+	table {
+		border: 1px solid #eaeaea;
+		table-layout: auto !important;
+		border-collapse: collapse;
+		border-spacing: 0;
+		table-layout: fixed;
+		width: 100%;
+		
+		tr, td, th {
+			vertical-align: middle;
+			width: auto !important;
+		}
+
+		th {
+			background: #f7f7f7;
+			padding: .5rem;
+		}
+
+		td {
+			padding: .5rem;
+			border: 1px solid #eaeaea;
+		}
+	}
+
+	img, .video-container {
+		margin: 3rem auto;
+		display: block;
+		text-align: center;
+	}
+	img {
+		border: 0;
+		max-width: 100%;
+	}
+
+
+	blockquote {
+		border-left: 10px solid #F0F2F4;
+		margin: 1.7rem 0;
+		padding-left: .85rem;
+		p {
+			font-size: 1.1rem;
+			color: #999;
+		}
 	}
 
 	#top-bar {

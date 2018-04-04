@@ -15,6 +15,12 @@ body {
   min-height: 100%; }
   #body h1, #body h2, #body h3, #body h4, #body h5, #body h6 {
     margin: .85rem 0 1.7rem 0; }
+  #body h1 {
+    text-align: center;
+    text-transform: uppercase;
+    color: #222;
+    font-weight: 200;
+    font-size: 3.25rem; }
   #body pre {
     padding: 1rem;
     margin: 2rem 0;
@@ -34,8 +40,37 @@ body {
   #body code {
     border-radius: 3px;
     color: #212529;
-    background: #efefef;
-    padding: 0 5px; }
+    background: #efefef; }
+  #body table {
+    border: 1px solid #eaeaea;
+    table-layout: auto !important;
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: fixed;
+    width: 100%; }
+    #body table tr, #body table td, #body table th {
+      vertical-align: middle;
+      width: auto !important; }
+    #body table th {
+      background: #f7f7f7;
+      padding: .5rem; }
+    #body table td {
+      padding: .5rem;
+      border: 1px solid #eaeaea; }
+  #body img, #body .video-container {
+    margin: 3rem auto;
+    display: block;
+    text-align: center; }
+  #body img {
+    border: 0;
+    max-width: 100%; }
+  #body blockquote {
+    border-left: 10px solid #F0F2F4;
+    margin: 1.7rem 0;
+    padding-left: .85rem; }
+    #body blockquote p {
+      font-size: 1.1rem;
+      color: #999; }
   #body #top-bar {
     background: #F6F6F6;
     border-radius: 2px;

@@ -3,7 +3,6 @@
  active = {lang:null, version:null, path:'/'}
 
  $(function(){
-
 	////////////// LOAD CONFIG //////////////
 	$.get('./config.yaml', function(file) {
 		config = jsyaml.load(file)
@@ -23,8 +22,8 @@
 		NProgress.set(0.4);
 
 	}).fail(function(req, status) { utils.show.sidebarError('ERROR: config.yaml') 
-}).always(function() {
-	$('body').fadeIn(1000)
+	}).always(function() {
+		$('body').fadeIn(1000)
 
 		////////////// LOAD ROUTES //////////////		
 		$.get(active.path+'routes.yaml', function(file) {
@@ -33,14 +32,22 @@
 				$('#list').append(create.menuItem(i, item))
 			})
 			
-			change.home()
-
 			if(location.hash.length > 0){
-				let elem = $("#list li a[href='"+location.hash+"']")
-				
-				change.page(elem)
+				if(config.lang.active){
+					let elemVersion = $('[data-type="lang"][data-path="'+utils.splitUrl(location.hash)[1]+'"]')
+					if(!elemVersion.find('i').length) change.active(elemVersion)
+				}
+
+				if(config.version.active && !config.lang.active){
+					let elemLang = $('[data-type="lang"][data-path="'+utils.splitUrl(location.hash)[2]+'"]')
+					if(!elemLang.find('i').length) change.active(elemLang)
+				}
+
+				change.page($("#list li a[href='"+location.hash+"']"))
 				$('.active').closest('ul').collapse('show') 
-			} 
+			} else {
+				change.home()
+			}
 
 		}).fail(function(req, status) { utils.show.sidebarError('ERROR: routes.yaml')
 	}).always(function() {
@@ -78,15 +85,14 @@ $('.searchbox').on('click','.sb-close',  function() {
 
 
 $('#list').on('click', 'li a', function() {
-	if(!$(this).hasClass('active')){
-		change.page($(this))
-	}
+	if(!$(this).hasClass('active')) change.page($(this))
 	$('#sidebar').removeClass('toggled')
 })
 
 $('.dropdown').on('click', 'li a', function() {
-	if(!$(this).find('i').length){
+	if(!$(this).find('i').length) {
 		change.active($(this))
+		change.home()
 	}
 	$('#sidebar').removeClass('toggled')
 })
@@ -127,7 +133,7 @@ $("body").keypress(function(e){
 });
 
 
- var	create = {
+ var create = {
 
 	////////////// DROPS //////////////
 	drop(type){
@@ -263,12 +269,14 @@ var	change = {
 	},
 
 	page(elem){
+		if(!elem.data('url')) return utils.show.bodyError({status:'404'})
+
 		let url = elem.data('url'),
 		isChapter = url.endsWith('/'+config.pages.chapter);
 
 		if(isChapter && !config.pages.chapter) return elem.next('ul').find('.menuitem')[0].click()
 
-			NProgress.start()
+		NProgress.start()
 
 		$.get(url, function(data) {
 			NProgress.set(0.4)
@@ -287,6 +295,10 @@ var	change = {
 			if(config.breadcrumb.active) $('#body-content').prepend(create.breadcrumb(elem.data()))
 
 				$('#body-inner').html(url.endsWith('.md') ? new showdown.Converter(config.showdown).makeHtml(data) : data)
+	
+			$('pre code').each(function(i, block) {
+				hljs.highlightBlock(block);
+			})
 			
 		}).fail(function(req, textStatus) { utils.show.bodyError(req) 
 		}).always(function() { NProgress.done() })
@@ -306,9 +318,9 @@ var	change = {
 
 	active(elem){
 		let type = elem.data('type'),
-		path = elem.data('path'),
-		text = elem.text(),
-		paths;
+			path = elem.data('path'),
+			text = elem.text(),
+			paths;
 
 		$('#check-'+type).remove()
 		$('#menu-'+type+' text').text(text)
@@ -352,7 +364,7 @@ var	change = {
 		active.path = '/'
 		change.paths(paths)
 		change.menuitems()
-		change.home()
+		// change.home()
 	},
 
 
@@ -396,7 +408,7 @@ var	change = {
 				$('.active').closest('ul').collapse('show') 
 			} 
 
-		}).fail(function(req, status) { utils.show.sidebarError('ERROR: routes.yaml')
+		}).fail(function(req, status) { utils.show.sidebarError('ERROR: routes.yaml (Menuitems)')
 	}).always(function() {
 		$('#loading-sidebar').hide()
 	})

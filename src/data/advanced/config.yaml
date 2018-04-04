@@ -67,6 +67,8 @@ showdown:
     strikethrough: true
     tables: true
     tasklists: true
+    ghMentions: true
+    emoji: true
 
 perfectscrollbar:
     suppressScrollX: true
