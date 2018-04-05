@@ -4,15 +4,15 @@ var gulp  = require('gulp'),
 	sass  = require('gulp-sass'),
 	bs    = require('browser-sync'),
 	fs    = require('fs-extra'),
+	zip   = require('gulp-zip'),
 	argv  = require('yargs').argv,
 	storage = require('gulp-storage')(gulp);
 
 gulp.storage.create('root', 'config.json')
 
 
-gulp.task('default', ['temp','watch'], function () {  
-	console.log("THEME: "+gulp.storage.get('theme'))
-	console.log("DATA: "+gulp.storage.get('data'))
+gulp.task('default', ['temp','watch'], function () {
+	console.log(' - INFO:\n\tTHEME: '+gulp.storage.get('theme')+'\n\tDATA: '+gulp.storage.get('data')+'\n')
 })
 
 gulp.task('sass', function () {  
@@ -43,27 +43,18 @@ gulp.task('watch', function() {
 
 })
 
-gulp.task('watch-docs', function() {  
-	bs.init(["**/*"], {
-		server: {
-			baseDir: "./docs"
-		},
-		browser: '/opt/firefox_dev/firefox',
-	})
+// $ gulp export --name 'doc2018'
+//  - Zip temp folder and save on ./exported
+gulp.task('export', function(){ 
+	let now = new Date()
+	
+	let filename = argv.name || ''+now.getFullYear()+now.getMonth()+1+now.getDate()+now.getMinutes()+now.getSeconds()
+	gulp.src('./temp/**/*')
+		.pipe(zip(filename+'.zip'))
+		.pipe(gulp.dest('./exported'))
 
-	gulp.watch("./docs/**/*").on('change', bs.reload);
-})
-
-// $ gulp docs 
-//  - Call watch-docs
-// $ gulp docs --theme 'default' --example 'basic'
-//  - Copy to docs exaple basic and theme default
-gulp.task('docs', function(){ 
-	fs.removeSync('./docs/*')
-	console.log(" - INFO: ./docs/* has been remove")
-
-	gulp.src('./temp/**/*').pipe(gulp.dest('./docs'))
-	console.log(" - INFO: ./temp/**/* has been copied to ./docs")
+	console.log(' - INFO:\n\tTHEME: '+gulp.storage.get('theme')+'\n\tDATA: '+gulp.storage.get('data')+'\n')
+	console.log('   File created ./exported/'+filename+'.zip')
 })
 
 gulp.task('clean', function() {
@@ -73,15 +64,12 @@ gulp.task('clean', function() {
 
 // $ gulp active --data 'basic' --theme 'default'
 gulp.task('active', function(){ 
-	
 	if(argv.data != undefined) {
-		let theme = (argv.theme == undefined) ? 'default' : argv.theme
-		store(theme, argv.data)
+		store(argv.theme || 'default', argv.data)
 
 		gulp.start('temp')
 	} else {
-		console.log(" - ERROR: The example argument is missing.")
-		console.log("   Example: $ gulp active --data 'basic'")
+		console.log(" - ERROR: The example argument is missing.\n\tExample: $ gulp active --data 'basic'")
 	}
 })
 
@@ -103,8 +91,8 @@ gulp.task('temp', function() {
 		gulp.src('./src/data/'+folder+'/**/*').pipe(gulp.dest('./temp'))
 		console.log(" - INFO: ./src/data/"+folder+"/* has been copied to ./temp")
 
-		gulp.src('./src/themes/**/*').pipe(gulp.dest('temp/themes'))
-		console.log(" - INFO: ./src/themes/**/* has been copied to ./temp/themes")
+		gulp.src('./src/themes'+theme+'/**/*').pipe(gulp.dest('temp/themes'))
+		console.log(" - INFO: ./src/themes/"+theme+"/**/* has been copied to ./temp/themes")
 
 	} catch(e) {
 		console.log(" - ERROR: './src/data/"+folder+"' doesn't exist!")
@@ -127,14 +115,23 @@ gulp.task('store', function() {
 });
 
 function store(theme, data){
-	gulp.storage.set('theme', theme)
-	gulp.storage.set('data', data)
-	console.log(" - INFO: config.json file has been created with '"+gulp.storage.get('theme')+"' and '"+gulp.storage.get('data')+"' vars")
+	try {
+		fs.accessSync('./src/themes/'+theme)
+		fs.accessSync('./src/data/'+data)
+
+		gulp.storage.set('theme', theme)
+		gulp.storage.set('data', data)
+
+		console.log(" - INFO: config.json file has been created with '"+gulp.storage.get('theme')+"' and '"+gulp.storage.get('data')+"' vars")
+	
+	}catch(e){
+		console.log(" - ERROR: The folder does not exist.")
+		process.exit
+	}
 }
 
 
 // TODO:
-//  Task pack: Compress temp folder
 //  Task pack-theme: Compress only a theme
 //  Task pack-data: Compress only the data folder
 //  Task release: Make a gitowl release

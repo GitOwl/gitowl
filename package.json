@@ -1,5 +1,5 @@
 {
-  "name": "facuz/githow",
+  "name": "GitOwl/githow",
   "version": "1.0.0",
   "description": "A powerfull framework ready to write and publish documents with github pages.",
   "main": "gulpfile.js",
@@ -24,6 +24,7 @@
     "gulp": "^3.9.1",
     "gulp-sass": "^3.2.1",
     "gulp-storage": "^1.0.6",
+    "gulp-zip": "^4.1.0",
     "yargs": "^11.1.0"
   }
 }
