@@ -43,19 +43,24 @@ gulp.task('watch', function() {
 
 })
 
-// $ gulp export --name 'doc2018'
+// $ gulp export --file 'doc2018'
 //  - Zip temp folder and save on ./exported
+// $ gulp export --theme 'default'
+//  - Zip theme and save on ./exported
 gulp.task('export', function(){ 
 	let now = new Date()
+
+	let filename = argv.file || ''+now.getFullYear()+now.getMonth()+1+now.getDate()+now.getMinutes()+now.getSeconds()
+	let src = argv.theme ? './src/themes/'+argv.theme+'/**/*' : './temp/**/*'
 	
-	let filename = argv.name || ''+now.getFullYear()+now.getMonth()+1+now.getDate()+now.getMinutes()+now.getSeconds()
-	gulp.src('./temp/**/*')
-		.pipe(zip(filename+'.zip'))
+	gulp.src(src)
+		.pipe(zip(filename))
 		.pipe(gulp.dest('./exported'))
 
 	console.log(' - INFO:\n\tTHEME: '+gulp.storage.get('theme')+'\n\tDATA: '+gulp.storage.get('data')+'\n')
 	console.log('   File created ./exported/'+filename+'.zip')
 })
+
 
 gulp.task('clean', function() {
 	fs.removeSync('./temp')
@@ -91,7 +96,7 @@ gulp.task('temp', function() {
 		gulp.src('./src/data/'+folder+'/**/*').pipe(gulp.dest('./temp'))
 		console.log(" - INFO: ./src/data/"+folder+"/* has been copied to ./temp")
 
-		gulp.src('./src/themes'+theme+'/**/*').pipe(gulp.dest('temp/themes'))
+		gulp.src('./src/themes/'+theme+'/**/*', { "base" : './src/themes/' }).pipe(gulp.dest('temp/themes'))
 		console.log(" - INFO: ./src/themes/"+theme+"/**/* has been copied to ./temp/themes")
 
 	} catch(e) {
@@ -99,12 +104,6 @@ gulp.task('temp', function() {
 
 	}
 })
-
-// Shortcuts
-gulp.task('gitowl',   function(){ folder = 'gitowl';   gulp.start('temp') })
-gulp.task('basic',    function(){ folder = 'basic';    gulp.start('temp') })
-gulp.task('advanced', function(){ folder = 'advanced'; gulp.start('temp') })
-
 
 
 // $ gulp store --theme 'default' --data 'basic'
@@ -126,12 +125,16 @@ function store(theme, data){
 	
 	}catch(e){
 		console.log(" - ERROR: The folder does not exist.")
-		process.exit
 	}
 }
 
 
+// Shortcuts
+gulp.task('gitowl',   function(){ folder = 'gitowl';   gulp.start('temp') })
+gulp.task('basic',    function(){ folder = 'basic';    gulp.start('temp') })
+gulp.task('advanced', function(){ folder = 'advanced'; gulp.start('temp') })
+
+
+
 // TODO:
-//  Task pack-theme: Compress only a theme
-//  Task pack-data: Compress only the data folder
 //  Task release: Make a gitowl release
