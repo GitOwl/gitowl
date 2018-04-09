@@ -10,7 +10,10 @@ theme: default
 content:
   title: 'GitOwl: Languages Example'
   logo: '<img src="themes/default/img/logo.svg"/>'
-  search: 'Search...'
+
+search:
+  active: true
+  text: 'Search...'
 
 pages:
   folder: pages

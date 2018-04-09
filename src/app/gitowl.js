@@ -13,8 +13,9 @@
 		
 		$('.logo').html(config.content.logo)
 		$('#h-title').html(config.content.title)
-		$('.searchbox input').attr("placeholder", config.content.search);
-		
+		$('.searchbox input').attr("placeholder", config.search.text);
+		if(!config.search.active) $('.searchbox').hide()
+
 		change.paths(config.paths)
 
 		create.drop('lang')
