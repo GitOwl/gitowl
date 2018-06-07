@@ -1,5 +1,5 @@
 <h1 align="center">
-  <a href="https://facuz.github.io/gitowl"><img src="docs/themes/default/img/logo-dark.png" alt="Gitowl" width="450"></a>
+  <a href="https://facuz.github.io/gitowl"><img src="src/themes/default/img/logo-dark.png" alt="Gitowl" width="450"></a>
   <br>
 </h1>
 
@@ -15,7 +15,7 @@
 </p>
 
 <div align="center">
-  <img src="docs/themes/default/img/demo.png" alt="GitOwl">
+  <img src="src/themes/default/img/demo.png" alt="GitOwl">
 </div>
 
 ## Key Features

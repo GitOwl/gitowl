@@ -20,9 +20,9 @@
   },
   "homepage": "https://github.com/FaCuZ/githow#readme",
   "devDependencies": {
-    "browser-sync": "^2.23.6",
+    "browser-sync": "^2.24.4",
     "gulp": "^3.9.1",
-    "gulp-sass": "^3.2.1",
+    "gulp-sass": "^4.0.1",
     "gulp-storage": "^1.0.6",
     "gulp-zip": "^4.1.0",
     "yargs": "^11.1.0"
