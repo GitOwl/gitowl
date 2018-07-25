@@ -1,6 +1,6 @@
 #######################
 ###                 ###
-###  GitOwl Config  ###
+###   GitOwl v1.0   ###
 ###                 ###
 #######################
 
@@ -20,13 +20,13 @@ pages:
   home: index.md
   chapter: chapter.md
 
-redirect:
-  home: true
-  chapter: false
-
 nav:
   prev: true
   next: true
+  keypress: true
+
+breadcrumb:
+  active: true
 
 bullet:
   level1: true
@@ -52,18 +52,20 @@ paths:
 
 #### EXTERNAL LIBRARIES ####
 showdown:
-    noHeaderId: true
-    parseImgDimensions: true
-    simplifiedAutoLink: true
-    excludeTrailingPunctuationFromURLs: true
-    strikethrough: true
-    tables: true
-    tasklists: true
+  noHeaderId: true
+  parseImgDimensions: true
+  simplifiedAutoLink: true
+  excludeTrailingPunctuationFromURLs: true
+  strikethrough: true
+  tables: true
+  tasklists: true
+  ghMentions: true
+  emoji: true
 
 perfectscrollbar:
-    suppressScrollX: true
-    minScrollbarLength: 20
-    maxScrollbarLength: 80
+  suppressScrollX: true
+  minScrollbarLength: 20
+  maxScrollbarLength: 80
 
-progress:
+nprogress:
   parent: '#body-content'

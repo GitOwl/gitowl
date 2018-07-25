@@ -1,10 +1,10 @@
 #######################
 ###                 ###
-###  GitOwl config  ###
+###   GitOwl v1.0   ###
 ###                 ###
 #######################
 
-#### Basic ####
+#### BASIC ####
 theme: default
 
 content:
@@ -23,6 +23,10 @@ pages:
 nav:
   prev: true
   next: true
+  keypress: true
+
+breadcrumb:
+  active: true
 
 bullet:
   level1: true
@@ -36,7 +40,7 @@ version:
   active: true
   hide: false
 
-#### Folder Structure ####
+#### FOLDER STRUCTURE ####
 paths:
   - title: English
     path: en
@@ -60,20 +64,22 @@ paths:
       default: true
 
 
-#### External libraries ####
+#### EXTERNAL LIBRARIES ####
 showdown:
-    noHeaderId: true
-    parseImgDimensions: true
-    simplifiedAutoLink: true
-    excludeTrailingPunctuationFromURLs: true
-    strikethrough: true
-    tables: true
-    tasklists: true
+  noHeaderId: true
+  parseImgDimensions: true
+  simplifiedAutoLink: true
+  excludeTrailingPunctuationFromURLs: true
+  strikethrough: true
+  tables: true
+  tasklists: true
+  ghMentions: true
+  emoji: true
 
 perfectscrollbar:
-    suppressScrollX: true
-    minScrollbarLength: 20
-    maxScrollbarLength: 80
+  suppressScrollX: true
+  minScrollbarLength: 20
+  maxScrollbarLength: 80
 
-progress:
+nprogress:
   parent: '#body-content'

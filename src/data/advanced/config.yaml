@@ -4,7 +4,7 @@
 ###                 ###
 #######################
 
-#### Basic ####
+#### BASIC ####
 theme: default
 
 content:
@@ -24,7 +24,7 @@ nav:
   prev: true
   next: true
   keypress: true
-  
+
 breadcrumb:
   active: true
 
@@ -40,7 +40,7 @@ version:
   active: true
   hide: false
 
-#### Folder Structure ####
+#### FOLDER STRUCTURE ####
 paths:
   - title: English
     path: en
@@ -61,22 +61,22 @@ paths:
       default: true
 
 
-#### External libraries ####
+#### EXTERNAL LIBRARIES ####
 showdown:
-    noHeaderId: true
-    parseImgDimensions: true
-    simplifiedAutoLink: true
-    excludeTrailingPunctuationFromURLs: true
-    strikethrough: true
-    tables: true
-    tasklists: true
-    ghMentions: true
-    emoji: true
+  noHeaderId: true
+  parseImgDimensions: true
+  simplifiedAutoLink: true
+  excludeTrailingPunctuationFromURLs: true
+  strikethrough: true
+  tables: true
+  tasklists: true
+  ghMentions: true
+  emoji: true
 
 perfectscrollbar:
-    suppressScrollX: true
-    minScrollbarLength: 20
-    maxScrollbarLength: 80
+  suppressScrollX: true
+  minScrollbarLength: 20
+  maxScrollbarLength: 80
 
 nprogress:
   parent: '#body-content' 
