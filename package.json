@@ -14,7 +14,7 @@
     "url": "git+https://github.com/GitOwl/gitowl.git"
   },
   "bugs": {
-    "url": "https://github.com/GitOwl/issues"
+    "url": "https://github.com/GitOwl/gitowl/issues"
   },
   "homepage": "https://GitOwl.github.com/",
   "devDependencies": {
