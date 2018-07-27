@@ -195,7 +195,16 @@ body {
   #sidebar .dropdown {
     position: relative;
     text-align: center;
-    margin: auto; }
+    margin: auto;
+    /* 
+		#menu-version{
+			//	background-color: red;
+		}
+		#menu-lang{
+			//	background-color: green;
+
+		}
+*/ }
     #sidebar .dropdown button {
       margin: 0px 0px;
       background: rgba(255, 255, 255, 0);
@@ -401,8 +410,6 @@ body {
 @media (max-width: 800px) and (min-width: 550px) {
   #navigation #sidebar-toggle {
     display: inline;
-    height: 12%;
-    width: 80px;
     padding: 7px 13px;
     color: rgba(56, 145, 201, 0.7); }
     #navigation #sidebar-toggle:hover {

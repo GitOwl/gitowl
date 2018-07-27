@@ -1,14 +1,11 @@
 {
-  "name": "GitOwl/gitowl",
+  "name": "@gitowl/gitowl",
   "version": "1.0.0",
   "description": "A powerfull framework ready to write and publish documents with github pages.",
   "main": "gulpfile.js",
   "author": "Facundo Zaldo",
   "email": "info@indis.com.ar",
   "license": "MIT",
-  "directories": {
-    "doc": "docs"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
