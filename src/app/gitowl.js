@@ -60,7 +60,7 @@ $(function () {
 		})
 	})
 
-	$('#search-by').on('keyup', function () {
+	$('#search-by').on('keyup', function () {		
 		let search = $(this).val()
 
 		$('.sb-close').show()
@@ -115,22 +115,23 @@ $(function () {
 
 	$("body").keypress(function (e) {
 
-		if (!config.nav.keypress || $(e.target).is('input,select,button')) return false
-
-		switch (e.key) {
-			case 'j':
-			case 'ArrowLeft':
-				$('a.nav-prev').click()
-				break;
-
-			case 'k':
-			case 'ArrowRight':
-				$('a.nav-next').click()
-				break;
-			default:
-				return; // exit this handler for other keys
+		if (config.nav.keypress && !$(e.target).is('input,select,button')) {
+			switch (e.key) {
+				case 'j':
+				case 'ArrowLeft':
+					$('a.nav-prev').click()
+					break;
+	
+				case 'k':
+				case 'ArrowRight':
+					$('a.nav-next').click()
+					break;
+				default:
+					return; // exit this handler for other keys
+			}
+			e.preventDefault();
 		}
-		e.preventDefault();
+
 	})
 
 })
