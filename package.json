@@ -18,11 +18,11 @@
   },
   "homepage": "https://GitOwl.github.com/",
   "devDependencies": {
-    "browser-sync": "^2.24.4",
-    "gulp": "^3.9.1",
-    "gulp-sass": "^4.0.1",
-    "gulp-storage": "^1.0.6",
-    "gulp-zip": "^4.1.0",
-    "yargs": "^12.0.1"
+    "browser-sync": "^2.26.7",
+    "fs-extra": "^9.0.0",
+    "gulp": "^4.0.2",
+    "gulp-sass": "^4.1.0",
+    "gulp-zip": "^5.0.1",
+    "yargs": "^15.3.1"
   }
 }

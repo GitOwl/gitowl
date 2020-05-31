@@ -84,7 +84,6 @@ You can help in different ways:
 - Share it with everyone
 - Buy me a [coffee](https://www.paypal.me/FaCuZ)
 
-> I really need coffee!
 
 ## License
 

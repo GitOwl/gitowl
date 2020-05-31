@@ -1,6 +1,4 @@
 {
-  "root": {
-    "theme": "default",
-    "data": "advanced"
-  }
+  "theme": "default",
+  "data": "advanced"
 }

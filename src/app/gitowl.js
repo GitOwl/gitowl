@@ -79,6 +79,12 @@ $(function () {
 			let re = new RegExp(search, 'i')
 			$(item).html($(item).text().replace(re, '<high>' + re.exec($(item).text()) + '</high>'))
 		})
+
+		console.log($('#list li:visible').length)
+		if ($('#list li:visible').length == 0) {
+			// Esta vacia la lista mostrar un mensaje
+			console.log("Vacia")
+		}
 	})
 
 	$('.searchbox').on('click', '.sb-close', function () {
